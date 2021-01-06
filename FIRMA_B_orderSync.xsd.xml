@@ -1,0 +1,86 @@
+<orderSync>
+  <!--1 or more repetitions:-->
+  <orders>
+    <refNumber>string</refNumber>
+    <date>2008-09-29T03:49:45</date>
+    <accountNumber>string</accountNumber>
+    <amount>1000.00</amount>
+    <type>WITHDRAWAL</type>
+    <maker>
+      <!--Optional:-->
+      <id>100</id>
+      <!--Optional:-->
+      <type>INDIVIDUAL</type>
+      <!--Optional:-->
+      <personData>
+        <name>string</name>
+        <surname>string</surname>
+        <pesel>string</pesel>
+        <documentType>ID</documentType>
+      </personData>
+      <!--Optional:-->
+      <companyData>
+        <nip>string</nip>
+        <name>string</name>
+      </companyData>
+      <!--Optional:-->
+      <contactData>
+        <phone>string</phone>
+        <email>string</email>
+      </contactData>
+      <!--Zero or more repetitions:-->
+      <address type="HOME">
+        <countryCode>UA</countryCode>
+        <city>string</city>
+        <postalCode>string</postalCode>
+        <street>string</street>
+        <streetNo>string</streetNo>
+        <homeNo>string</homeNo>
+      </address>
+      <!--Zero or more repetitions:-->
+      <account>
+        <name>string</name>
+        <number>string</number>
+        <countryCode>TK</countryCode>
+      </account>
+    </maker>
+    <receiver>
+      <!--Optional:-->
+      <id>100</id>
+      <!--Optional:-->
+      <type>COMPANY</type>
+      <!--Optional:-->
+      <personData>
+        <name>string</name>
+        <surname>string</surname>
+        <pesel>string</pesel>
+        <documentType>ID</documentType>
+      </personData>
+      <!--Optional:-->
+      <companyData>
+        <nip>string</nip>
+        <name>string</name>
+      </companyData>
+      <!--Optional:-->
+      <contactData>
+        <phone>string</phone>
+        <email>string</email>
+      </contactData>
+      <!--Zero or more repetitions:-->
+      <address type="HOME">
+        <countryCode>SO</countryCode>
+        <city>string</city>
+        <postalCode>string</postalCode>
+        <street>string</street>
+        <streetNo>string</streetNo>
+        <homeNo>string</homeNo>
+      </address>
+      <!--Zero or more repetitions:-->
+      <account>
+        <name>string</name>
+        <number>string</number>
+        <countryCode>BA</countryCode>
+      </account>
+    </receiver>
+  </orders>
+</orderSync>

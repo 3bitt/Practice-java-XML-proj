@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:account xmlns="firmaA" xmlns:ns2="firmaB">
+    <name>Account name</name>
+    <number>111111155577</number>
+    <countryCode>AD</countryCode>
+</ns2:account>

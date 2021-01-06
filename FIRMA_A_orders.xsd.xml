@@ -1,0 +1,87 @@
+<orders>
+  <date>2008-09-29T03:49:45</date>
+  <synchronizeNo>string</synchronizeNo>
+  <!--1 or more repetitions:-->
+  <order type="WITHDRAWAL" number="100" date="2004-02-14T19:44:14">
+    <accountNumber>string</accountNumber>
+    <amount>1000.00</amount>
+    <sender type="COMPANY">
+      <!--Optional:-->
+      <id>100</id>
+      <!--Optional:-->
+      <name>string</name>
+      <!--Optional:-->
+      <surname>string</surname>
+      <!--Optional:-->
+      <pesel>string</pesel>
+      <!--Optional:-->
+      <documentCountry>TK</documentCountry>
+      <!--Optional:-->
+      <documentType>PASSPORT</documentType>
+      <!--Optional:-->
+      <documentNumber>string</documentNumber>
+      <!--Optional:-->
+      <companyName>string</companyName>
+      <!--Optional:-->
+      <nip>100</nip>
+      <!--Zero or more repetitions:-->
+      <phone>string</phone>
+      <!--Zero or more repetitions:-->
+      <email>string</email>
+      <!--Zero or more repetitions:-->
+      <address type="HOME">
+        <countryCode>UZ</countryCode>
+        <city>string</city>
+        <postalCode>string</postalCode>
+        <street>string</street>
+        <streetNo>string</streetNo>
+        <homeNo>string</homeNo>
+      </address>
+      <!--Zero or more repetitions:-->
+      <account>
+        <name>string</name>
+        <number>string</number>
+        <countryCode>SO</countryCode>
+      </account>
+    </sender>
+    <recipient type="INDIVIDUAL">
+      <!--Optional:-->
+      <id>100</id>
+      <!--Optional:-->
+      <name>string</name>
+      <!--Optional:-->
+      <surname>string</surname>
+      <!--Optional:-->
+      <pesel>string</pesel>
+      <!--Optional:-->
+      <documentCountry>SB</documentCountry>
+      <!--Optional:-->
+      <documentType>PASSPORT</documentType>
+      <!--Optional:-->
+      <documentNumber>string</documentNumber>
+      <!--Optional:-->
+      <companyName>string</companyName>
+      <!--Optional:-->
+      <nip>100</nip>
+      <!--Zero or more repetitions:-->
+      <phone>string</phone>
+      <!--Zero or more repetitions:-->
+      <email>string</email>
+      <!--Zero or more repetitions:-->
+      <address type="ENUMERATION">
+        <countryCode>PL</countryCode>
+        <city>string</city>
+        <postalCode>string</postalCode>
+        <street>string</street>
+        <streetNo>string</streetNo>
+        <homeNo>string</homeNo>
+      </address>
+      <!--Zero or more repetitions:-->
+      <account>
+        <name>string</name>
+        <number>string</number>
+        <countryCode>DM</countryCode>
+      </account>
+    </recipient>
+  </order>
+</orders>

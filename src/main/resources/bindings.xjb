@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jxb:bindings version="2.0"
+              xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+              xmlns:xs="http://www.w3.org/2001/XMLSchema"
+              xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc">
+
+    <jxb:globalBindings localScoping="toplevel">
+        <jxb:serializable/>
+    </jxb:globalBindings>
+
+    <jxb:bindings schemaLocation="FIRMA_A.xsd" node="/xs:schema">
+
+        <jxb:schemaBindings>
+            <jxb:package name="pl.edu.wit.jpa.dao.companyA.model"></jxb:package>
+
+           <jxb:nameXmlTransform>
+                <jxb:typeName prefix="Ca"/>
+                <jxb:anonymousTypeName prefix="Ca"/>
+           </jxb:nameXmlTransform>
+        </jxb:schemaBindings>
+
+
+    </jxb:bindings>
+
+
+   <jxb:bindings schemaLocation="FIRMA_B.xsd" node="/xs:schema">
+
+        <jxb:schemaBindings>
+           <jxb:package name="pl.edu.wit.jpa.dao.companyB.model"></jxb:package>
+
+           <jxb:nameXmlTransform>
+                <jxb:typeName prefix="Cb"/>
+                <jxb:anonymousTypeName prefix="Cb"/>
+           </jxb:nameXmlTransform>
+        </jxb:schemaBindings>
+
+    </jxb:bindings>
+
+</jxb:bindings>

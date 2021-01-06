@@ -1,0 +1,40 @@
+<customerSync>
+  <date>2008-09-29T03:49:45</date>
+  <syncNo>string</syncNo>
+  <customers>
+    <!--1 or more repetitions:-->
+    <customer>
+      <id>100</id>
+      <type>INDIVIDUAL</type>
+      <personData>
+        <name>string</name>
+        <surname>string</surname>
+        <pesel>string</pesel>
+        <documentType>ID</documentType>
+      </personData>
+      <companyData>
+        <nip>string</nip>
+        <name>string</name>
+      </companyData>
+      <contactData>
+        <phone>string</phone>
+        <email>string</email>
+      </contactData>
+      <!--1 or more repetitions:-->
+      <address type="HOME">
+        <countryCode>KE</countryCode>
+        <city>string</city>
+        <postalCode>string</postalCode>
+        <street>string</street>
+        <streetNo>string</streetNo>
+        <homeNo>string</homeNo>
+      </address>
+      <!--1 or more repetitions:-->
+      <account>
+        <name>string</name>
+        <number>string</number>
+        <countryCode>UA</countryCode>
+      </account>
+    </customer>
+  </customers>
+</customerSync>
