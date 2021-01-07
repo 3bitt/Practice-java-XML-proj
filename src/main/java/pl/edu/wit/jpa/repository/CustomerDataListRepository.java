@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface CustomerDataListRepository extends CrudRepository<CaCustomerDataList, Long> {
 
-    CaCustomerDataList findByHjid(Long id);
+    CaCustomerDataList findByid(Long id);
 
 
 

@@ -7,6 +7,6 @@ import pl.edu.wit.jpa.dao.companyA.model.CaAccount;
 @Repository
 public interface AccountRepository extends CrudRepository<CaAccount, Long> {
 
-    CaAccount findByhjid(Long id);
+    CaAccount findByid(Long id);
 
 }

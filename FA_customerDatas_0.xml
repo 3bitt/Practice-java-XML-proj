@@ -1,12 +1,12 @@
 <customerDatas>
   <date>2008-09-29T03:49:45</date>
-  <synchronizeNo>1</synchronizeNo>
+  <synchronizeNo>2</synchronizeNo>
   <!--1 or more repetitions:-->
   <customerDatas type="INDIVIDUAL">
     <!--Optional:-->
     <id>1</id>
     <!--Optional:-->
-    <name>TomekDomek</name>
+    <name>Tomek</name>
     <!--Optional:-->
     <surname>Testowy</surname>
     <!--Optional:-->
@@ -22,10 +22,9 @@
     <!--Optional:-->
     <nip>12345</nip>
     <!--1 or more repetitions:-->
-    <phones>123456789</phones>
-    <phones>123456</phones>
+    <phones>001</phones>
     <!--1 or more repetitions:-->
-    <emailAddresses>string</emailAddresses>
+    <emailAddresses>tomekDomek2@email.com</emailAddresses>
     <!--1 or more repetitions:-->
     <address type="HOME">
       <countryCode>PL</countryCode>
@@ -37,7 +36,7 @@
     </address>
     <!--1 or more repetitions:-->
     <account>
-      <name>nazwa konta</name>
+      <name>nazwa konta0000000000</name>
       <number>numer:123456</number>
       <countryCode>PL</countryCode>
     </account>
@@ -46,7 +45,7 @@
     <!--Optional:-->
     <id>2</id>
     <!--Optional:-->
-    <name>Wiesiek</name>
+    <name>Wiesław</name>
     <!--Optional:-->
     <surname>Szyszka</surname>
     <!--Optional:-->

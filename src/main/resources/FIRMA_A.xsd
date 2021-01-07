@@ -4,6 +4,7 @@
            xmlns:hj="http://hyperjaxb3.jvnet.org/ejb/schemas/customizations"
            xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
            jxb:extensionBindingPrefixes="hj orm"
+           jxb:version="2.1"
            targetNamespace="firmaA"
            xmlns="firmaA">
 
@@ -11,6 +12,16 @@
     <xs:element name="orders" type="orders"/>
     <xs:complexType name="orders">
         <xs:sequence>
+            <xs:element type="xs:long" name="id" minOccurs="0">
+                <xs:annotation>
+                    <xs:appinfo>
+                        <hj:id>
+                            <orm:column name="id"/>
+                            <orm:generated-value strategy="IDENTITY"/>
+                        </hj:id>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
             <xs:element type="xs:dateTime" name="date"/>
             <xs:element type="xs:string" name="synchronizeNo"/>
             <xs:element type="order" name="order" maxOccurs="unbounded"/>
@@ -18,6 +29,16 @@
     </xs:complexType>
     <xs:complexType name="order">
         <xs:sequence>
+            <xs:element type="xs:long" name="id" minOccurs="0">
+                <xs:annotation>
+                    <xs:appinfo>
+                        <hj:id>
+                            <orm:column name="id"/>
+                            <orm:generated-value strategy="IDENTITY"/>
+                        </hj:id>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
             <xs:element type="xs:string" name="accountNumber"/>
             <xs:element type="xs:decimal" name="amount"/>
             <xs:element type="orderCustomerData" name="sender"/>
@@ -30,13 +51,14 @@
     <xs:complexType name="orderCustomerData">
         <xs:sequence>
             <xs:element type="xs:long" name="id" minOccurs="0">
-            <xs:annotation>
-                <xs:appinfo>
-                    <hj:id>
-                        <orm:column name="id"/>
-                    </hj:id>
-                </xs:appinfo>
-            </xs:annotation>
+                <xs:annotation>
+                    <xs:appinfo>
+                        <hj:id>
+                            <orm:column name="id"/>
+                            <orm:generated-value strategy="IDENTITY"/>
+                        </hj:id>
+                    </xs:appinfo>
+                </xs:annotation>
             </xs:element>
             <xs:element type="xs:string" name="name" minOccurs="0"/>
             <xs:element type="xs:string" name="surname" minOccurs="0"/>
@@ -67,6 +89,16 @@
     </xs:simpleType>
     <xs:complexType name="customerDataList" >
         <xs:sequence>
+            <xs:element type="xs:long" name="id" minOccurs="0">
+                <xs:annotation>
+                    <xs:appinfo>
+                        <hj:id>
+                            <orm:column name="id"/>
+                            <orm:generated-value strategy="IDENTITY"/>
+                        </hj:id>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
             <xs:element type="xs:dateTime" name="date"/>
             <xs:element type="xs:string" name="synchronizeNo"/>
             <xs:element type="customerData" name="customerDatas" maxOccurs="unbounded"/>
@@ -75,13 +107,14 @@
     <xs:complexType name="customerData">
         <xs:sequence>
             <xs:element type="xs:long" name="id" minOccurs="0">
-                    <xs:annotation>
-                        <xs:appinfo>
-                            <hj:id>
-                                <orm:column name="id"/>
-                            </hj:id>
-                        </xs:appinfo>
-                    </xs:annotation>
+                <xs:annotation>
+                    <xs:appinfo>
+                        <hj:id>
+                            <orm:column name="id"/>
+                            <orm:generated-value strategy="IDENTITY"/>
+                        </hj:id>
+                    </xs:appinfo>
+                </xs:annotation>
             </xs:element>
             <xs:element type="xs:string" name="name" minOccurs="0"/>
             <xs:element type="xs:string" name="surname" minOccurs="0"/>
@@ -608,6 +641,16 @@
     </xs:simpleType>
     <xs:complexType name="address">
         <xs:sequence>
+            <xs:element type="xs:long" name="id">
+                <xs:annotation>
+                    <xs:appinfo>
+                        <hj:id>
+                            <orm:column name="id"/>
+                            <orm:generated-value strategy="IDENTITY"/>
+                        </hj:id>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
             <xs:element type="countryCode" name="countryCode"/>
             <xs:element type="xs:string" name="city"/>
             <xs:element type="xs:string" name="postalCode"/>
@@ -619,10 +662,21 @@
     </xs:complexType>
     <xs:complexType name="account">
         <xs:sequence>
+            <xs:element type="xs:long" name="id">
+                <xs:annotation>
+                    <xs:appinfo>
+                        <hj:id>
+                            <orm:column name="id"/>
+                            <orm:generated-value strategy="IDENTITY"/>
+                        </hj:id>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
             <xs:element type="xs:string" name="name"/>
             <xs:element type="xs:string" name="number"/>
             <xs:element type="countryCode" name="countryCode"/>
         </xs:sequence>
+
     </xs:complexType>
 
 
