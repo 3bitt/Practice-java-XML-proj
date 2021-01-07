@@ -1,0 +1,45 @@
+<customerDatas>
+  <date>2008-09-29T03:49:45</date>
+  <synchronizeNo>1</synchronizeNo>
+  <!--1 or more repetitions:-->
+  <customerDatas type="INDIVIDUAL">
+    <!--Optional:-->
+    <id>1</id>
+    <!--Optional:-->
+    <name>Tomek</name>
+    <!--Optional:-->
+    <surname>Testowy</surname>
+    <!--Optional:-->
+    <pesel>90010199555</pesel>
+    <!--Optional:-->
+    <documentCountry>PL</documentCountry>
+    <!--Optional:-->
+    <documentType>ID</documentType>
+    <!--Optional:-->
+    <documentNumber>DOC-1345-docNum</documentNumber>
+    <!--Optional:-->
+    <companyName>CompanyA-01</companyName>
+    <!--Optional:-->
+    <nip>12345</nip>
+    <!--1 or more repetitions:-->
+    <phones>123456789</phones>
+    <phones>123456</phones>
+    <!--1 or more repetitions:-->
+    <emailAddresses>string</emailAddresses>
+    <!--1 or more repetitions:-->
+    <address type="HOME">
+      <countryCode>PL</countryCode>
+      <city>Warszafka</city>
+      <postalCode>02-000</postalCode>
+      <street>ulica</street>
+      <streetNo>ulicaNo</streetNo>
+      <homeNo>numer domu</homeNo>
+    </address>
+    <!--1 or more repetitions:-->
+    <account>
+      <name>nazwa konta</name>
+      <number>numer:123456</number>
+      <countryCode>PL</countryCode>
+    </account>
+  </customerDatas>
+</customerDatas>
