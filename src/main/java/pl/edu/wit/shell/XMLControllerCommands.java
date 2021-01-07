@@ -46,8 +46,35 @@ public class XMLControllerCommands {
 //      ### Get root to fix missing XmlRootElement in jaxb class when unmarshalling
         JAXBElement<CaCustomerDataList> root =
                 mar.unmarshal(new StreamSource(plik), CaCustomerDataList.class);
+
         CaCustomerDataList customerData = root.getValue();
-//        customerData = (CaCustomerDataList) mar.unmarshal(new FileReader(plik));
+
+        customerRepo.save(customerData);
+
+    }
+
+    @ShellMethod("Generate dummy xml")
+    public void marshal() throws JAXBException, IOException {
+
+//        CaCustomerDataList customerList = new CaCustomerDataList();
+//        customerList.setDateItem(new Date());
+//        customerList.setId(1L);
+//        customerList.setSynchronizeNo("synchronizeNo-1");
+//        CaAccount account = new CaAccount();
+//        account.setName("Account name");
+//        account.setNumber("111111155577");
+//        account.setCountryCode(CaCountryCode.AD);
+//
+//        Marshaller mar = jaxbFactory.getMarshaller(CaAccount.class);
+//        mar.marshal(new JAXBElement<CaAccount>(new QName("firmaB", "account"),CaAccount.class, account),new File("./account.xml"));
+
+    }
+
+}
+
+
+// ###### Kawalek kodu ze stackOverflow - problem przestrzeni nazw
+// ###### https://stackoverflow.com/questions/1871060/jaxb-unmarshalling-ignoring-namespace-turns-element-attributes-into-null/7693661
 
 //        XMLInputFactory xif = XMLInputFactory.newFactory();
 //        xif.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, false); // this is the magic line
@@ -61,27 +88,3 @@ public class XMLControllerCommands {
 //        JAXBContext jc = JAXBContext.newInstance(your.ObjectFactory.class);
 //        Unmarshaller unmarshaller = jc.createUnmarshaller();
 //        Object unmarshal = unmarshaller.unmarshal(xsr);
-
-
-        customerRepo.save(customerData);
-
-    }
-
-    @ShellMethod("Generate dummy xml")
-    public void marshal() throws JAXBException, IOException {
-
-        CaCustomerDataList customerList = new CaCustomerDataList();
-        customerList.setDateItem(new Date());
-        customerList.setHjid(1L);
-        customerList.setSynchronizeNo("synchronizeNo-1");
-        CaAccount account = new CaAccount();
-        account.setName("Account name");
-        account.setNumber("111111155577");
-        account.setCountryCode(CaCountryCode.AD);
-
-        Marshaller mar = jaxbFactory.getMarshaller(CaAccount.class);
-        mar.marshal(new JAXBElement<CaAccount>(new QName("firmaB", "account"),CaAccount.class, account),new File("./account.xml"));
-//        mar.marshal(account, new File("./account.xml"));
-    }
-
-}

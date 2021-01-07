@@ -41,4 +41,43 @@
       <countryCode>TK</countryCode>
     </account>
   </customerDatas>
+  <customerDatas type="COMPANY">
+    <!--Optional:-->
+    <id>100</id>
+    <!--Optional:-->
+    <name>string</name>
+    <!--Optional:-->
+    <surname>string</surname>
+    <!--Optional:-->
+    <pesel>string</pesel>
+    <!--Optional:-->
+    <documentCountry>GG</documentCountry>
+    <!--Optional:-->
+    <documentType>ID</documentType>
+    <!--Optional:-->
+    <documentNumber>string</documentNumber>
+    <!--Optional:-->
+    <companyName>string</companyName>
+    <!--Optional:-->
+    <nip>100</nip>
+    <!--1 or more repetitions:-->
+    <phones>string</phones>
+    <!--1 or more repetitions:-->
+    <emailAddresses>string</emailAddresses>
+    <!--1 or more repetitions:-->
+    <address type="HOME">
+      <countryCode>UA</countryCode>
+      <city>string</city>
+      <postalCode>string</postalCode>
+      <street>string</street>
+      <streetNo>string</streetNo>
+      <homeNo>string</homeNo>
+    </address>
+    <!--1 or more repetitions:-->
+    <account>
+      <name>string</name>
+      <number>string</number>
+      <countryCode>TK</countryCode>
+    </account>
+  </customerDatas>
 </customerDatas>

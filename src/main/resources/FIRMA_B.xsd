@@ -1,5 +1,9 @@
 <xs:schema elementFormDefault="qualified"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:orm="http://java.sun.com/xml/ns/persistence/orm"
+           xmlns:hj="http://hyperjaxb3.jvnet.org/ejb/schemas/customizations"
+           xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+           jxb:extensionBindingPrefixes="hj orm"
            targetNamespace="firmaB"
            xmlns="firmaB">
 
@@ -19,7 +23,15 @@
     </xs:complexType>
     <xs:complexType name="customer">
         <xs:sequence>
-            <xs:element type="xs:integer" name="id"/>
+            <xs:element type="xs:long" name="id">
+            <xs:annotation>
+                <xs:appinfo>
+                    <hj:id>
+                        <orm:column name="id"/>
+                    </hj:id>
+                </xs:appinfo>
+            </xs:annotation>
+            </xs:element>
             <xs:element type="customerType" name="type"/>
             <xs:element type="personData" name="personData"/>
             <xs:element type="companyData" name="companyData"/>
@@ -52,7 +64,15 @@
     </xs:simpleType>
     <xs:complexType name="orderCustomer">
         <xs:sequence>
-            <xs:element type="xs:integer" name="id" minOccurs="0"/>
+            <xs:element type="xs:long" name="id" minOccurs="0">
+            <xs:annotation>
+                <xs:appinfo>
+                    <hj:id>
+                        <orm:column name="id"/>
+                    </hj:id>
+                </xs:appinfo>
+            </xs:annotation>
+            </xs:element>
             <xs:element type="customerType" name="type" minOccurs="0"/>
             <xs:element type="personData" name="personData" minOccurs="0"/>
             <xs:element type="companyData" name="companyData" minOccurs="0"/>

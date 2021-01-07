@@ -14,11 +14,10 @@
             <jxb:package name="pl.edu.wit.jpa.dao.companyA.model"></jxb:package>
 
            <jxb:nameXmlTransform>
-                <jxb:typeName prefix="Ca"/>
-                <jxb:anonymousTypeName prefix="Ca"/>
+               <jxb:typeName prefix="Ca"/>
+               <jxb:anonymousTypeName prefix="Ca"/>
            </jxb:nameXmlTransform>
-        </jxb:schemaBindings>
-
+       </jxb:schemaBindings>
 
     </jxb:bindings>
 

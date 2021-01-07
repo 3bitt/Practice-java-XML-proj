@@ -1,9 +1,13 @@
 <xs:schema elementFormDefault="qualified"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:orm="http://java.sun.com/xml/ns/persistence/orm"
+           xmlns:hj="http://hyperjaxb3.jvnet.org/ejb/schemas/customizations"
+           xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+           jxb:extensionBindingPrefixes="hj orm"
            targetNamespace="firmaA"
            xmlns="firmaA">
 
-    <xs:element name="customerDatas" type="customerDataList" />
+    <xs:element name="customerDatas" type="customerDataList"/>
     <xs:element name="orders" type="orders"/>
     <xs:complexType name="orders">
         <xs:sequence>
@@ -25,7 +29,15 @@
     </xs:complexType>
     <xs:complexType name="orderCustomerData">
         <xs:sequence>
-            <xs:element type="xs:integer" name="id" minOccurs="0"/>
+            <xs:element type="xs:long" name="id" minOccurs="0">
+            <xs:annotation>
+                <xs:appinfo>
+                    <hj:id>
+                        <orm:column name="id"/>
+                    </hj:id>
+                </xs:appinfo>
+            </xs:annotation>
+            </xs:element>
             <xs:element type="xs:string" name="name" minOccurs="0"/>
             <xs:element type="xs:string" name="surname" minOccurs="0"/>
             <xs:element type="xs:string" name="pesel" minOccurs="0"/>
@@ -62,7 +74,15 @@
     </xs:complexType>
     <xs:complexType name="customerData">
         <xs:sequence>
-            <xs:element type="xs:integer" name="id" minOccurs="0"/>
+            <xs:element type="xs:long" name="id" minOccurs="0">
+                    <xs:annotation>
+                        <xs:appinfo>
+                            <hj:id>
+                                <orm:column name="id"/>
+                            </hj:id>
+                        </xs:appinfo>
+                    </xs:annotation>
+            </xs:element>
             <xs:element type="xs:string" name="name" minOccurs="0"/>
             <xs:element type="xs:string" name="surname" minOccurs="0"/>
             <xs:element type="xs:string" name="pesel" minOccurs="0"/>
