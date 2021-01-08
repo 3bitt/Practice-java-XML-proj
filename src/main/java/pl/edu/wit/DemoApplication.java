@@ -4,8 +4,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.support.JpaEntityInformation;
+import org.springframework.data.jpa.repository.support.JpaPersistableEntityInformation;
 import pl.edu.wit.controller.JaxbFactory;
-import pl.edu.wit.jpa.repository.AccountRepository;
+import pl.edu.wit.jpa.repository.firmaA.customer.AccountRepository;
 
 @SpringBootApplication
 public class DemoApplication {

@@ -1,29 +1,24 @@
 package pl.edu.wit.shell;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 import org.xml.sax.SAXException;
 import pl.edu.wit.controller.JaxbFactory;
-import pl.edu.wit.jpa.dao.companyA.model.CaAccount;
-import pl.edu.wit.jpa.dao.companyA.model.CaCustomerData;
-import pl.edu.wit.jpa.dao.companyA.model.CaCustomerDataList;
-import pl.edu.wit.jpa.dao.companyA.model.ObjectFactory;
-import pl.edu.wit.jpa.repository.AccountRepository;
-import pl.edu.wit.jpa.repository.CustomerDataImpl;
-import pl.edu.wit.jpa.repository.CustomerDataListRepository;
-import pl.edu.wit.jpa.repository.CustomerDataRepository;
+import pl.edu.wit.jpa.dao.companyA.model.*;
+import pl.edu.wit.jpa.repository.firmaA.customer.CustomerDataImpl;
+import pl.edu.wit.jpa.repository.firmaA.customer.CustomerDataListRepository;
+import pl.edu.wit.jpa.repository.firmaA.order.OrderCustomerRepository;
+import pl.edu.wit.jpa.repository.firmaA.order.OrderImpl;
+import pl.edu.wit.jpa.repository.firmaA.order.OrdersRepository;
+import pl.edu.wit.jpa.repository.firmaA.order.OrderReporistory;
 
-import javax.xml.XMLConstants;
+import javax.transaction.Transactional;
 import javax.xml.bind.*;
-import javax.xml.stream.XMLStreamException;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.List;
 
 @ShellComponent("KLIENT")
@@ -32,46 +27,139 @@ public class XMLControllerCommands {
     @Autowired
     private JaxbFactory jaxbFactory;
 
-    @Autowired
-    private AccountRepository accountRepo;
+//    @Autowired
+//    private AccountRepository accountRepo;
     @Autowired
     private CustomerDataListRepository customerListRepo;
     @Autowired
     private CustomerDataImpl customerRepoImpl;
 
+    @Autowired
+    private OrderReporistory orderRepo;
+    @Autowired
+    private OrdersRepository ordersRepo;
+    @Autowired
+    private OrderCustomerRepository orderCustomerRepo;
+    @Autowired
+    private OrderImpl orderRepoImpl;
+
     @ShellMethod("Załaduj plik z danymi klientów podając nazwe pliku jako argument")
-    public void zaladuj(
-            @ShellOption(defaultValue="FA_customerDatas_0.xml") String plik) throws JAXBException, IOException, XMLStreamException, SAXException {
+    @Transactional
+    public void ladujKlientow(
+            @ShellOption(defaultValue="customerDatas.xml") String plik) throws JAXBException, IOException, SAXException {
 
-        Unmarshaller mar = jaxbFactory.getUnmarshaller(ObjectFactory.class);
+        JAXBContext context = JAXBContext.newInstance();
+        Unmarshaller jaxb = context.createUnmarshaller();
 
-//  #### Set Schema so marshaller can validate XML file basing on XSD schema file
-        SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Schema schema = schemaFactory.newSchema(new File("FIRMA_A.xsd"));
-        mar.setSchema(schema);
+        if (plik.equals("customerDatas.xml")) {
+            jaxb = jaxbFactory.getUnmarshaller(ObjectFactory.class, "Firma_A.xsd");
+        } else if (plik.equals("customerSync.xml") ) {
+            jaxb = jaxbFactory.getUnmarshaller(ObjectFactory.class, "Firma_B.xsd");
+        } else {
+            System.err.println("Niepoprawna nazwa pliku: " + plik);
+            System.err.println("Możliwe nazwy: [customerDatas.xml] lub [customerSync.xml]");
+            return;
+        }
 
         try {
 //      ### Get root to fix missing XmlRootElement in jaxb class when unmarshalling
             JAXBElement<CaCustomerDataList> root =
-                    mar.unmarshal(new StreamSource(plik), CaCustomerDataList.class);
+                    jaxb.unmarshal(new StreamSource(plik), CaCustomerDataList.class);
             CaCustomerDataList customerData = root.getValue();
-//            List<CaCustomerData> a = customerData.getCustomerDatas();
 
-            for (CaCustomerData c : customerData.getCustomerDatas()){
-                List<CaAccount> acc = c.getAccount();
-                accountRepo.saveAll(acc);
-                customerRepoImpl.addCustomer(c);
-            }
+//      #### Zapisujemy customerDataList jako pojedyńczy obiekt bez zagnieżdzonych obiektów
             CaCustomerDataList list = new CaCustomerDataList();
             list.setId(customerData.getId());
             list.setDateItem(customerData.getDateItem());
             list.setSynchronizeNo(customerData.getSynchronizeNo());
-
-
             customerListRepo.save(list);
-        } catch (JAXBException e){
 
+//      #### Zapisujemy liste klientów wraz z zagnieżdzonymi elementami (adres, konta, itd.)
+            customerRepoImpl.saveAll(customerData.getCustomerDatas());
+
+        } catch (JAXBException e) {
+            System.out.println("Exception: " + e);
         }
+    }
+
+
+    @ShellMethod("Zaladuj zamowienia klientow")
+    @Transactional
+    public void ladujZamowienia(
+            @ShellOption(defaultValue="orders.xml") String plik) throws JAXBException, IOException, SAXException {
+
+        JAXBContext context = JAXBContext.newInstance();
+        Unmarshaller jaxb = context.createUnmarshaller();
+
+        if (plik.equals("orders.xml")) {
+            jaxb = jaxbFactory.getUnmarshaller(ObjectFactory.class, "Firma_A.xsd");
+        } else if (plik.equals("orderSync.xml") ) {
+            jaxb = jaxbFactory.getUnmarshaller(ObjectFactory.class, "Firma_B.xsd");
+        } else {
+            System.err.println("Niepoprawna nazwa pliku: " + plik);
+            System.err.println("Możliwe nazwy: [orders.xml] lub [orderSync.xml]");
+            return;
+        }
+
+        try {
+//      ### Get root to fix missing XmlRootElement in jaxb class when unmarshalling
+            JAXBElement<CaOrders> root =
+                    jaxb.unmarshal(new StreamSource(plik), CaOrders.class);
+            CaOrders customerOrders = root.getValue();
+
+//      #### Zapisujemy customerDataList jako pojedyńczy obiekt bez zagnieżdzonych obiektów
+            CaOrders list = new CaOrders();
+            list.setId(customerOrders.getId());
+            list.setDateItem(customerOrders.getDateItem());
+            list.setSynchronizeNo(customerOrders.getSynchronizeNo());
+            ordersRepo.save(list);
+
+//      #### Zapisujemy liste klientów wraz z zagnieżdzonymi elementami (adres, konta, itd.)
+            List<CaOrder> orderList = customerOrders.getOrder();
+//            orderRepoImpl.saveOrders(orderList);
+            for (CaOrder order : orderList){
+                CaCustomerData sender = customerRepoImpl.findCustomerById(order.getSender().getId());
+                CaCustomerData recipient = customerRepoImpl.findCustomerById(order.getRecipient().getId());
+
+                if (sender == null) {
+                    System.err.println("[Sender] Nie ma takiego klienta w bazie:\n" +
+                            order.getSender().getName() +
+                            order.getSender().getSurname() );
+                    continue;
+                }
+                if (recipient == null) {
+                    System.err.println("[Recipient] Nie ma takiego klienta w bazie:\n" +
+                            order.getRecipient().getName() +
+                            order.getRecipient().getSurname() );
+                    continue;
+                }
+
+                boolean validAccount = false;
+                for (CaAccount acc : recipient.getAccount()){
+                    if (acc.getNumber().equals(order.getAccountNumber())) {
+                        validAccount = true;
+                        break;
+                    }
+                }
+                if (validAccount){
+                    System.out.println("\n\nZamowienie wyglada okej!\n\n");
+                    orderCustomerRepo.save(order.getSender());
+                    orderCustomerRepo.save(order.getRecipient());
+                    orderRepoImpl.saveOrder(order);
+                } else {
+                    System.err.println(
+                            "Odbiorca nie posiada podanego numeru konta" +
+                            "\n[Numer konta]: " + order.getAccountNumber() +
+                            "\n[Odbiorca] " + recipient.getName() + recipient.getSurname()
+                    );
+                }
+            }
+
+        } catch (JAXBException e) {
+            System.out.println("Exception: " + e);
+        }
+
+
 
     }
 

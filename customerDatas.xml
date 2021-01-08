@@ -1,14 +1,14 @@
 <customerDatas>
   <date>2008-09-29T03:49:45</date>
-  <synchronizeNo>2</synchronizeNo>
+  <synchronizeNo>1</synchronizeNo>
   <!--1 or more repetitions:-->
   <customerDatas type="INDIVIDUAL">
     <!--Optional:-->
     <id>1</id>
     <!--Optional:-->
-    <name>Tomek</name>
+    <name>Tomasz</name>
     <!--Optional:-->
-    <surname>Testowy</surname>
+    <surname>Testowy11</surname>
     <!--Optional:-->
     <pesel>90010199555</pesel>
     <!--Optional:-->
@@ -24,20 +24,20 @@
     <!--1 or more repetitions:-->
     <phones>001</phones>
     <!--1 or more repetitions:-->
-    <emailAddresses>tomekDomek2@email.com</emailAddresses>
+    <emailAddresses>tomtom@email.com</emailAddresses>
     <!--1 or more repetitions:-->
     <address type="HOME">
       <countryCode>PL</countryCode>
-      <city>Warszafka</city>
+      <city>Wrocław</city>
       <postalCode>02-000</postalCode>
       <street>ulica</street>
       <streetNo>ulicaNo</streetNo>
-      <homeNo>numer domu</homeNo>
+      <homeNo>13242425</homeNo>
     </address>
     <!--1 or more repetitions:-->
     <account>
       <name>nazwa konta0000000000</name>
-      <number>numer:123456</number>
+      <number>numer:12345600000</number>
       <countryCode>PL</countryCode>
     </account>
   </customerDatas>
@@ -57,7 +57,7 @@
     <!--Optional:-->
     <documentNumber>DOC-13456-docNum</documentNumber>
     <!--Optional:-->
-    <companyName>CompanyA-01</companyName>
+    <companyName>CompanyA-02</companyName>
     <!--Optional:-->
     <nip>12345</nip>
     <!--1 or more repetitions:-->
@@ -68,7 +68,7 @@
     <!--1 or more repetitions:-->
     <address type="ENUMERATION">
       <countryCode>PL</countryCode>
-      <city>Enumeration</city>
+      <city>Poznań</city>
       <postalCode>01-555</postalCode>
       <street>ulicaJakas</street>
       <streetNo>numerUlicy</streetNo>
@@ -77,12 +77,12 @@
     <!--1 or more repetitions:-->
     <account>
       <name>Konto-1</name>
-      <number>numer:12342689256</number>
+      <number>123456</number>
       <countryCode>PL</countryCode>
     </account>
     <account>
       <name>Konto-2</name>
-      <number>numer:123436346456</number>
+      <number>091</number>
       <countryCode>PL</countryCode>
     </account>
   </customerDatas>

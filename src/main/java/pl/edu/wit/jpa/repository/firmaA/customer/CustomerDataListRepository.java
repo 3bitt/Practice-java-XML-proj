@@ -1,4 +1,4 @@
-package pl.edu.wit.jpa.repository;
+package pl.edu.wit.jpa.repository.firmaA.customer;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

@@ -1,4 +1,4 @@
-package pl.edu.wit.jpa.repository;
+package pl.edu.wit.jpa.repository.firmaA.customer;
 
 import org.hibernate.mapping.List;
 import org.springframework.data.repository.CrudRepository;
@@ -8,7 +8,7 @@ import pl.edu.wit.jpa.dao.companyA.model.CaCustomerData;
 @Repository
 public interface CustomerDataRepository extends CrudRepository<CaCustomerData, Long> {
 
-//    CaCustomerData findByid(Long id);
+    CaCustomerData findByid(Long id);
 //    CaCustomerData saveCustomer(CaCustomerData customer);
 
 }

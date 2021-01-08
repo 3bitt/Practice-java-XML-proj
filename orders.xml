@@ -1,0 +1,87 @@
+<orders>
+  <date>2008-09-29T03:49:45</date>
+  <synchronizeNo>1</synchronizeNo>
+  <!--1 or more repetitions:-->
+  <order type="WITHDRAWAL" number="1" date="2004-02-14T19:44:14">
+    <accountNumber>123456</accountNumber>
+    <amount>1000.00</amount>
+    <sender type="INDIVIDUAL">
+      <!--Optional:-->
+      <id>1</id>
+      <!--Optional:-->
+      <name>Tomasz</name>
+      <!--Optional:-->
+      <surname>Testowy11</surname>
+      <!--Optional:-->
+      <pesel>90010199555</pesel>
+      <!--Optional:-->
+      <documentCountry>PL</documentCountry>
+      <!--Optional:-->
+      <documentType>ID</documentType>
+      <!--Optional:-->
+      <documentNumber>DOC-1345-docNum</documentNumber>
+      <!--Optional:-->
+      <companyName>CompanyA-01</companyName>
+      <!--Optional:-->
+      <nip>12345</nip>
+      <!--Zero or more repetitions:-->
+      <phone>001</phone>
+      <!--Zero or more repetitions:-->
+      <email>tomtom@email.com</email>
+      <!--Zero or more repetitions:-->
+      <address type="HOME">
+        <countryCode>PL</countryCode>
+        <city>Wrocław</city>
+        <postalCode>02-000</postalCode>
+        <street>ulica</street>
+        <streetNo>ulicaNo</streetNo>
+        <homeNo>13242425</homeNo>
+      </address>
+      <!--Zero or more repetitions:-->
+      <account>
+        <name>nazwa konta0000000000</name>
+        <number>numer:12345600000</number>
+        <countryCode>PL</countryCode>
+      </account>
+    </sender>
+    <recipient type="COMPANY">
+      <!--Optional:-->
+      <id>2</id>
+      <!--Optional:-->
+      <name>Wiesław</name>
+      <!--Optional:-->
+      <surname>Szyszka</surname>
+      <!--Optional:-->
+      <pesel>99010199555</pesel>
+      <!--Optional:-->
+      <documentCountry>PL</documentCountry>
+      <!--Optional:-->
+      <documentType>PASSPORT</documentType>
+      <!--Optional:-->
+      <documentNumber>DOC-13456-docNum</documentNumber>
+      <!--Optional:-->
+      <companyName>CompanyA-02</companyName>
+      <!--Optional:-->
+      <nip>12345</nip>
+      <!--Zero or more repetitions:-->
+      <phone>123456789</phone>
+      <!--Zero or more repetitions:-->
+      <email>mojemail@email.com</email>
+      <!--Zero or more repetitions:-->
+      <address type="ENUMERATION">
+        <countryCode>PL</countryCode>
+        <city>Poznań</city>
+        <postalCode>01-555</postalCode>
+        <street>ulicaJakas</street>
+        <streetNo>numerUlicy</streetNo>
+        <homeNo>numer domuuu</homeNo>
+      </address>
+      <!--Zero or more repetitions:-->
+      <account>
+        <name>Konto-1</name>
+        <number>123456</number>
+        <countryCode>PL</countryCode>
+      </account>
+    </recipient>
+  </order>
+</orders>
