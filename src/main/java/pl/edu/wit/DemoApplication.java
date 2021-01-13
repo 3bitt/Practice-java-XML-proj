@@ -12,18 +12,17 @@ import pl.edu.wit.jpa.repository.firmaA.customer.AccountRepository;
 @SpringBootApplication
 public class DemoApplication {
 
+
 	public static void main(String[] args) {
-
 		SpringApplication.run(DemoApplication.class, args);
-
 	}
 
-	@Bean
-	public CommandLineRunner demo(AccountRepository repository){
-		return (args) -> {
-			System.out.println("siema z Command Runnera");
-		};
-	}
+//	@Bean
+//	public CommandLineRunner demo(AccountRepository repository){
+//		return (args) -> {
+//			System.out.println("siema z Command Runnera");
+//		};
+//	}
 
 	@Bean
 	public JaxbFactory jaxbFactory(){

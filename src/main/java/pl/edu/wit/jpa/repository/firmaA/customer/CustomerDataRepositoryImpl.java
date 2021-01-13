@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class CustomerDataImpl {
+public class CustomerDataRepositoryImpl {
 
     @Autowired
     private CustomerDataListRepository customerListRepo;
@@ -20,7 +20,7 @@ public class CustomerDataImpl {
     private AccountRepository accountRepo;
 //    private EntityManager em;
 
-    public CustomerDataImpl(){
+    public CustomerDataRepositoryImpl(){
     }
     @Transactional
     public void saveAll(List<CaCustomerData> customerDataList){
@@ -29,6 +29,27 @@ public class CustomerDataImpl {
     public CaCustomerData findCustomerById(Long id){
         return customerRepo.findByid(id);
     }
+
+    public void save(CaCustomerData customer){
+            CaCustomerData n = new CaCustomerData();
+            n.setName(customer.getName());
+            n.setSurname(customer.getSurname());
+            n.setPesel(customer.getPesel());
+            n.setDocumentCountry(customer.getDocumentCountry());
+            n.setDocumentType(customer.getDocumentType());
+            n.setDocumentNumber(customer.getDocumentNumber());
+            n.setCompanyName(customer.getCompanyName());
+            n.setNip(customer.getNip());
+            n.setPhones(customer.getPhones());
+            n.setEmailAddresses(customer.getEmailAddresses());
+            n.setAddress(customer.getAddress());
+            n.setAccount(customer.getAccount());
+            n.setType(customer.getType());
+
+            customerRepo.save(n);
+        }
+
+
     @Transactional
     public CaCustomerData findCustomerByOrder(CaOrder order){
         return customerRepo.findByid(order.getSender().getId());
