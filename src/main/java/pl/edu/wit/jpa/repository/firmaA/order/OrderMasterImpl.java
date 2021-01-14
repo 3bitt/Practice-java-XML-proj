@@ -35,6 +35,7 @@ public class OrderMasterImpl {
     @Transactional
     public void save(CaOrders orders){
         CaOrders order = em.merge(orders);
+
         ordersRepo.save(order);
     }
 

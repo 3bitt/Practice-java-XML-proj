@@ -459,7 +459,7 @@ public class CaOrderCustomerData
      * 
      * 
      */
-    @OneToMany(targetEntity = CaAddress.class, cascade = {
+    @OneToMany(targetEntity = CaAddress.class, orphanRemoval = true, cascade = {
         CascadeType.ALL
     })
     @JoinColumn(name = "ADDRESS_CAORDERCUSTOMERDATA__0")
@@ -500,7 +500,7 @@ public class CaOrderCustomerData
      * 
      * 
      */
-    @OneToMany(targetEntity = CaAccount.class, cascade = {
+    @OneToMany(targetEntity = CaAccount.class, orphanRemoval = true, cascade = {
         CascadeType.ALL
     })
     @JoinColumn(name = "ACCOUNT_CAORDERCUSTOMERDATA__0")

@@ -1,0 +1,87 @@
+<orders>
+    <date>2008-09-29T03:49:45</date>
+    <synchronizeNo>2</synchronizeNo>
+    <!--1 or more repetitions:-->
+    <order type="WITHDRAWAL" number="2" date="2004-02-14T19:44:14">
+        <accountNumber>00000000010</accountNumber>
+        <amount>6789.25</amount>
+        <sender type="INDIVIDUAL">
+            <!--Optional:-->
+            <id>5</id>
+            <!--Optional:-->
+            <name>Mistrz</name>
+            <!--Optional:-->
+            <surname>Zen</surname>
+            <!--Optional:-->
+            <pesel>12000007653</pesel>
+            <!--Optional:-->
+            <documentCountry>PL</documentCountry>
+            <!--Optional:-->
+            <documentType>ID</documentType>
+            <!--Optional:-->
+            <documentNumber>DOC-15sdgh3-10025-docNum</documentNumber>
+            <!--Optional:-->
+            <companyName>CompanyA-05</companyName>
+            <!--Optional:-->
+            <nip>1225999999906345</nip>
+            <!--1 or more repetitions:-->
+            <phone>02316267484701</phone>
+            <!--1 or more repetitions:-->
+            <email>tsgah223m@email.com</email>
+            <!--1 or more repetitions:-->
+            <address type="HOME">
+                <countryCode>PL</countryCode>
+                <city>Honolulu</city>
+                <postalCode>0911-9152</postalCode>
+                <street>Przebojowa</street>
+                <streetNo>30</streetNo>
+                <homeNo>90</homeNo>
+            </address>
+            <!--1 or more repetitions:-->
+            <account>
+                <name>Moje konto-mBnak</name>
+                <number>0109020101121</number>
+                <countryCode>PL</countryCode>
+            </account>
+        </sender>
+        <recipient type="COMPANY">
+            <!--Optional:-->
+            <id>6</id>
+            <!--Optional:-->
+            <name>Miłosz</name>
+            <!--Optional:-->
+            <surname>Wielowątkowy</surname>
+            <!--Optional:-->
+            <pesel>0000000099111551112</pesel>
+            <!--Optional:-->
+            <documentCountry>PL</documentCountry>
+            <!--Optional:-->
+            <documentType>PASSPORT</documentType>
+            <!--Optional:-->
+            <documentNumber>PaSS-01-Passport00</documentNumber>
+            <!--Optional:-->
+            <companyName>CompanyA-06</companyName>
+            <!--Optional:-->
+            <nip>95710949603610386</nip>
+            <!--1 or more repetitions:-->
+            <phone>11223344557778787</phone>
+            <!--1 or more repetitions:-->
+            <email>mamtakiemailO1@email.com</email>
+            <!--1 or more repetitions:-->
+            <address type="ENUMERATION">
+                <countryCode>PL</countryCode>
+                <city>Kijów</city>
+                <postalCode>11-225109</postalCode>
+                <street>Kijowa</street>
+                <streetNo>9</streetNo>
+                <homeNo>904</homeNo>
+            </address>
+            <!--1 or more repetitions:-->
+            <account>
+                <name>Konto-test666</name>
+                <number>00000000010</number>
+                <countryCode>PL</countryCode>
+            </account>
+        </recipient>
+    </order>
+</orders>
