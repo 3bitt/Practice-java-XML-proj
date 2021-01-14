@@ -1,6 +1,7 @@
 package pl.edu.wit.jpa.repository.firmaA.customer;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import pl.edu.wit.jpa.dao.companyA.model.*;
 
@@ -18,9 +19,13 @@ public class CustomerDataRepositoryImpl {
     private CustomerDataRepository customerRepo;
     @Autowired
     private AccountRepository accountRepo;
-//    private EntityManager em;
+    @Autowired
+    private AddressRepository addressRepo;
+    @Autowired
+    EntityManager em;
 
-    public CustomerDataRepositoryImpl(){
+    public CustomerDataRepositoryImpl(EntityManager em){
+        this.em = em;
     }
     @Transactional
     public void saveAll(List<CaCustomerData> customerDataList){
@@ -30,24 +35,63 @@ public class CustomerDataRepositoryImpl {
         return customerRepo.findByid(id);
     }
 
-    public void save(CaCustomerData customer){
-            CaCustomerData n = new CaCustomerData();
-            n.setName(customer.getName());
-            n.setSurname(customer.getSurname());
-            n.setPesel(customer.getPesel());
-            n.setDocumentCountry(customer.getDocumentCountry());
-            n.setDocumentType(customer.getDocumentType());
-            n.setDocumentNumber(customer.getDocumentNumber());
-            n.setCompanyName(customer.getCompanyName());
-            n.setNip(customer.getNip());
-            n.setPhones(customer.getPhones());
-            n.setEmailAddresses(customer.getEmailAddresses());
-            n.setAddress(customer.getAddress());
-            n.setAccount(customer.getAccount());
-            n.setType(customer.getType());
 
-            customerRepo.save(n);
+    @Transactional
+    public void save(CaCustomerData customer){
+
+//        List<CaAccount> act = customer.getAccount();
+//        List<CaAddress> adr = customer.getAddress();
+
+        CaCustomerData n = em.merge(customer);
+
+//        System.out.println("\n\nCUSTOMER ID: " + customer.getId());
+//        n.setId(customer.getId());
+//        n.setName(customer.getName());
+//        n.setSurname(customer.getSurname());
+//        n.setPesel(customer.getPesel());
+//        n.setDocumentCountry(customer.getDocumentCountry());
+//        n.setDocumentType(customer.getDocumentType());
+//        n.setDocumentNumber(customer.getDocumentNumber());
+//        n.setCompanyName(customer.getCompanyName());
+//        n.setNip(customer.getNip());
+//        n.setPhones(customer.getPhones());
+//        n.setEmailAddresses(customer.getEmailAddresses());
+//        n.setAddress(customer.getAddress());
+//        n.setAccount(customer.getAccount());
+//        n.setType(customer.getType());
+
+//        List<CaAccount> list = new ArrayList<CaAccount>();
+//        for (CaAccount acc : customer.getAccount()){
+//            CaAccount a = accountRepo.findByid(acc.getId());
+//            if (a == null){
+//               CaAccount created =  accountRepo.save(acc);
+//               list.add(created);
+//            } else {
+//                System.out.println("\n\n\nPRZED MERGEM: " + a.getId());
+//                CaAccount popo = em.merge(a);
+//                list.add(popo);
+//                System.out.println("\n\n\nPO MERGU: " + popo.getId());
+//            }
+//        }
+
+
+        em.persist(n);
+    }
+    public List<CaAccount> checkAccount(List<CaAccount> account){
+        List<CaAccount> list = new ArrayList<CaAccount>();
+
+        for (CaAccount acc : account){
+            if (accountRepo.findByNumber(acc.getNumber()) == null){
+                System.out.println("Nie znalazlem takiego konta" + acc.getNumber());
+                accountRepo.saveAndFlush(acc);
+                list.add(acc);
+            } else {
+                System.out.println("Znalazłem konto" + acc.getNumber());
+                list.add(acc);
+            }
         }
+        return list;
+    }
 
 
     @Transactional

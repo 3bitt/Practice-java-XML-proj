@@ -10,6 +10,7 @@ import pl.edu.wit.jpa.dao.companyA.model.CaCustomerData;
 import pl.edu.wit.jpa.dao.companyA.model.CaCustomerDataList;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import java.lang.annotation.Inherited;
 import java.util.List;
 import java.util.Optional;
@@ -27,12 +28,14 @@ public class CustomerDataListRepositoryImpl{
         this.em = em;
     }
 
+    @Transactional
     public void saveParent(CaCustomerDataList customerList){
         CaCustomerDataList list = new CaCustomerDataList();
         list.setSynchronizeNo(customerList.getSynchronizeNo());
         list.setDateItem(customerList.getDateItem());
-
-        customerDataListRepo.save(list);
+        CaCustomerDataList l = em.merge(customerList);
+        em.persist(l);
+//        customerDataListRepo.save(list);
     }
 
     public void save(CaCustomerDataList customerList){

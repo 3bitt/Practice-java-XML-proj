@@ -11,16 +11,15 @@ import pl.edu.wit.jpa.dao.companyA.model.*;
 import pl.edu.wit.jpa.repository.firmaA.customer.CustomerDataListRepositoryImpl;
 import pl.edu.wit.jpa.repository.firmaA.customer.CustomerDataRepositoryImpl;
 import pl.edu.wit.jpa.repository.firmaA.customer.CustomerDataListRepository;
-import pl.edu.wit.jpa.repository.firmaA.order.OrderCustomerRepository;
-import pl.edu.wit.jpa.repository.firmaA.order.OrderImpl;
-import pl.edu.wit.jpa.repository.firmaA.order.OrdersRepository;
-import pl.edu.wit.jpa.repository.firmaA.order.OrderReporistory;
+import pl.edu.wit.jpa.repository.firmaA.order.*;
+import pl.edu.wit.jpa.dao.companyA.model.CaOrders;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import javax.xml.bind.*;
 import javax.xml.transform.stream.StreamSource;
 import java.io.ByteArrayInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
@@ -47,6 +46,8 @@ public class XMLControllerCommands {
     private OrderCustomerRepository orderCustomerRepo;
     @Autowired
     private OrderImpl orderRepoImpl;
+    @Autowired
+    private OrderMasterImpl orderMaster;
 
     public static <T> T unmarshalXml(Class<T> clazz, StreamSource queryResults,
                                      String contextNamespace)
@@ -76,43 +77,52 @@ public class XMLControllerCommands {
     }
 
     @ShellMethod("Załaduj plik z danymi klientów podając nazwe pliku jako argument")
-    @Transactional
     public void laduj(
             @ShellOption(defaultValue="customerDatas.xml") String plik) throws JAXBException, IOException, SAXException, ClassNotFoundException {
 
-        JAXBContext context = JAXBContext.newInstance();
+//        JAXBContext context = JAXBContext.newInstance();
+//        Unmarshaller jaxb = context.createUnmarshaller();
+//
+//
+//        if (plik.equals("customerDatas.xml")) {
+//            jaxb = jaxbFactory.getUnmarshaller(ObjectFactory.class, "Firma_A.xsd");
+//
+//        } else if (plik.equals("customerSync.xml") ) {
+//            jaxb = jaxbFactory.getUnmarshaller(ObjectFactory.class, "Firma_B.xsd");
+//        } else {
+//            System.err.println("Niepoprawna nazwa pliku: " + plik);
+//            System.err.println("Możliwe nazwy: [customerDatas.xml] lub [customerSync.xml]");
+//            return;
+//        }
+        JAXBContext context = JAXBContext.newInstance(CaCustomerDataList.class);
         Unmarshaller jaxb = context.createUnmarshaller();
-
-
-        if (plik.equals("customerDatas.xml")) {
-            jaxb = jaxbFactory.getUnmarshaller(ObjectFactory.class, "Firma_A.xsd");
-
-        } else if (plik.equals("customerSync.xml") ) {
-            jaxb = jaxbFactory.getUnmarshaller(ObjectFactory.class, "Firma_B.xsd");
-        } else {
-            System.err.println("Niepoprawna nazwa pliku: " + plik);
-            System.err.println("Możliwe nazwy: [customerDatas.xml] lub [customerSync.xml]");
-            return;
-        }
 
 //        try {
 //      ### Get root to fix missing XmlRootElement in jaxb class when unmarshalling
-//            JAXBElement<CaCustomerDataList> root =
-//                    jaxb.unmarshal(new StreamSource(plik), CaCustomerDataList.class);
-//            CaCustomerDataList customerData = root.getValue();
+            JAXBElement<CaCustomerDataList> root =
+                    jaxb.unmarshal(new StreamSource(plik), CaCustomerDataList.class);
+            CaCustomerDataList customerData = root.getValue();
 
-        CaCustomerDataList list = unmarshalXml(CaCustomerDataList.class,new StreamSource(plik),"firmaA"+ "." + "MessageClass");
-//      #### Zapisujemy customerDataList jako pojedyńczy obiekt bez zagnieżdzonych obiektów
+//        CaCustomerDataList list = unmarshalXml(CaCustomerDataList.class,new StreamSource(plik),"firmaA"+ "." + "MessageClass");
+
+
+
+//        CaCustomerDataList list = (CaCustomerDataList) jaxb.unmarshal(new FileReader(plik));
+//        CaCustomerData list = (CaCustomerData) jaxb.unmarshal(new FileReader(plik));
+
+
+//        System.out.println(list.getCustomerDatas());
+        //      #### Zapisujemy customerDataList jako pojedyńczy obiekt bez zagnieżdzonych obiektów
 //            CaCustomerDataList list = new CaCustomerDataList();
 //            list.setDateItem(customerData.getDateItem());
 //            list.setSynchronizeNo(customerData.getSynchronizeNo());
 
-        customerListImpl.saveParent(list);
+        customerListImpl.saveParent(customerData);
 
-        for (CaCustomerData cust : list.getCustomerDatas()){
-
-            customerRepoImpl.save(cust);
-        }
+//        for (CaCustomerData cust : customerData.getCustomerDatas()){
+//
+//            customerRepoImpl.save(cust);
+//        }
 
 //
 //      #### Zapisujemy liste klientów wraz z zagnieżdzonymi elementami (adres, konta, itd.)
@@ -125,50 +135,50 @@ public class XMLControllerCommands {
 
 
     @ShellMethod("Zaladuj zamowienia klientow")
-    @Transactional
     public void ladujZamowienia(
-            @ShellOption(defaultValue="orders.xml") String plik) throws JAXBException, IOException, SAXException {
+            @ShellOption(defaultValue="orders.xml") String plik) throws JAXBException, IOException, SAXException, ClassNotFoundException {
 
-        JAXBContext context = JAXBContext.newInstance();
+        JAXBContext context = JAXBContext.newInstance(CaOrders.class);
         Unmarshaller jaxb = context.createUnmarshaller();
 
-        if (plik.equals("orders.xml")) {
-            jaxb = jaxbFactory.getUnmarshaller(ObjectFactory.class, "Firma_A.xsd");
-        } else if (plik.equals("orderSync.xml") ) {
-            jaxb = jaxbFactory.getUnmarshaller(ObjectFactory.class, "Firma_B.xsd");
-        } else {
-            System.err.println("Niepoprawna nazwa pliku: " + plik);
-            System.err.println("Możliwe nazwy: [orders.xml] lub [orderSync.xml]");
-            return;
-        }
-
-        try {
+//        try {
 //      ### Get root to fix missing XmlRootElement in jaxb class when unmarshalling
-            JAXBElement<CaOrders> root =
-                    jaxb.unmarshal(new StreamSource(plik), CaOrders.class);
-            CaOrders customerOrders = root.getValue();
+        JAXBElement<CaOrders> root =
+                jaxb.unmarshal(new StreamSource(plik), CaOrders.class);
+        CaOrders orders = root.getValue();
+//
+//        if (plik.equals("orders.xml")) {
+//            jaxb = jaxbFactory.getUnmarshaller(ObjectFactory.class, "Firma_A.xsd");
+//        } else if (plik.equals("orderSync.xml") ) {
+//            jaxb = jaxbFactory.getUnmarshaller(ObjectFactory.class, "Firma_B.xsd");
+//        } else {
+//            System.err.println("Niepoprawna nazwa pliku: " + plik);
+//            System.err.println("Możliwe nazwy: [orders.xml] lub [orderSync.xml]");
+//            return;
+//        }
+
+//        try {
+//      ### Get root to fix missing XmlRootElement in jaxb class when unmarshalling
+//            CaOrders root =
+//                    CaOrders.class.cast(jaxb.unmarshal(new StreamSource(plik), CaOrders.class));
+//            CaOrders customerOrders = root.getValue();
+
+        orderMaster.save(orders);
+//            CaOrders orders = unmarshalXml(CaOrders.class, new StreamSource(plik),"firmaA"+ "." + "MessageClass");
 
 //      #### Zapisujemy customerDataList jako pojedyńczy obiekt bez zagnieżdzonych obiektów
 //            CaOrders list = new CaOrders();
 //            list.setId(customerOrders.getId());
 //            list.setDateItem(customerOrders.getDateItem());
-//            list.setSynchronizeNo(customerOrders.getSynchronizeNo());
-            System.out.println("ORDERSSSS");
-            System.out.println(customerOrders);
-            System.out.println(customerOrders.getOrder());
+//            list.setSynchronizeNo(customerOrders.getSynchronizeNo())
+//            orderMaster.saveParentOrder(orders);
+//            for (CaOrder order : orders.getOrder()){
+//                System.out.println("ELO");
+//                System.out.println("asdfdsaf: " + order.getSender().getId());
+//                orderMaster.saveChildOrder(order);
+//            }
 
-            List<CaOrder> order = customerOrders.getOrder();
-            System.out.println("ORDER");
-            System.out.println(order.get(0).getId());
-            System.out.println(order.get(0).getSender());
-            System.out.println(order.get(0).getRecipient());
-            System.out.println("RECIPIENT");
-            CaOrderCustomerData recip = order.get(0).getRecipient();
-
-            System.out.println(recip.getId());
-            System.out.println(recip.getCompanyName());
-
-            ordersRepo.save(customerOrders);
+//            orderMaster.saveParentOrder(orders);
 
 
 
@@ -215,9 +225,9 @@ public class XMLControllerCommands {
 //                }
 //            }
 
-        } catch (JAXBException e) {
-            System.out.println("Exception: " + e);
-        }
+//        } catch (JAXBException e) {
+//            System.out.println("Exception: " + e);
+//        }
 
 
 
