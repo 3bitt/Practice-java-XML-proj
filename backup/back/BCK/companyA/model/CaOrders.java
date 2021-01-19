@@ -6,7 +6,7 @@
 //
 
 
-package pl.edu.wit.jpa.dao.companyA.model.backup;
+package pl.edu.wit.jpa.dao.companyA.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -32,7 +32,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Cascade;
 import org.jvnet.hyperjaxb3.xml.bind.annotation.adapters.XMLGregorianCalendarAsDateTime;
 import org.jvnet.hyperjaxb3.xml.bind.annotation.adapters.XmlAdapterUtils;
 import org.jvnet.jaxb2_commons.lang.Equals;
@@ -91,7 +90,7 @@ public class CaOrders
     @XmlElement(required = true)
     protected String synchronizeNo;
     @XmlElement(required = true)
-    protected List<CaOrder> order;
+    protected List<pl.edu.wit.jpa.dao.companyA.model.CaOrder> order;
 
     /**
      * Gets the value of the id property.
@@ -189,18 +188,18 @@ public class CaOrders
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link CaOrder }
+     * {@link pl.edu.wit.jpa.dao.companyA.model.CaOrder }
      * 
      * 
      */
-    @OneToMany(targetEntity = CaOrder.class, orphanRemoval = true, cascade = {
+    @OneToMany(targetEntity = pl.edu.wit.jpa.dao.companyA.model.CaOrder.class, orphanRemoval = true, cascade = {
         CascadeType.ALL
     })
     @JoinColumn(name = "ORDER__CAORDERS_ID")
 //    @Cascade({org.hibernate.annotations.CascadeType.ALL})
-    public List<CaOrder> getOrder() {
+    public List<pl.edu.wit.jpa.dao.companyA.model.CaOrder> getOrder() {
         if (order == null) {
-            order = new ArrayList<CaOrder>();
+            order = new ArrayList<pl.edu.wit.jpa.dao.companyA.model.CaOrder>();
         }
         return this.order;
     }
@@ -209,7 +208,7 @@ public class CaOrders
      * 
      * 
      */
-    public void setOrder(List<CaOrder> order) {
+    public void setOrder(List<pl.edu.wit.jpa.dao.companyA.model.CaOrder> order) {
         this.order = order;
     }
 
@@ -260,9 +259,9 @@ public class CaOrders
             }
         }
         {
-            List<CaOrder> lhsOrder;
+            List<pl.edu.wit.jpa.dao.companyA.model.CaOrder> lhsOrder;
             lhsOrder = (((this.order!= null)&&(!this.order.isEmpty()))?this.getOrder():null);
-            List<CaOrder> rhsOrder;
+            List<pl.edu.wit.jpa.dao.companyA.model.CaOrder> rhsOrder;
             rhsOrder = (((that.order!= null)&&(!that.order.isEmpty()))?that.getOrder():null);
             if (!strategy.equals(LocatorUtils.property(thisLocator, "order", lhsOrder), LocatorUtils.property(thatLocator, "order", rhsOrder), lhsOrder, rhsOrder)) {
                 return false;

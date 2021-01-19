@@ -6,39 +6,39 @@
 //
 
 
-package pl.edu.wit.jpa.dao.companyA.model.backup;
+package pl.edu.wit.jpa.dao.companyA.model;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for documentType.
+ * <p>Java class for customerDataType.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="documentType">
+ * &lt;simpleType name="customerDataType">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="ID"/>
- *     &lt;enumeration value="PASSPORT"/>
+ *     &lt;enumeration value="INDIVIDUAL"/>
+ *     &lt;enumeration value="COMPANY"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
  * 
  */
-@XmlType(name = "documentType")
+@XmlType(name = "customerDataType")
 @XmlEnum
-public enum CaDocumentType {
+public enum CaCustomerDataType {
 
-    ID,
-    PASSPORT;
+    INDIVIDUAL,
+    COMPANY;
 
     public String value() {
         return name();
     }
 
-    public static CaDocumentType fromValue(String v) {
+    public static CaCustomerDataType fromValue(String v) {
         return valueOf(v);
     }
 

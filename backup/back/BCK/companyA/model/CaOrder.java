@@ -6,7 +6,7 @@
 //
 
 
-package pl.edu.wit.jpa.dao.companyA.model.backup;
+package pl.edu.wit.jpa.dao.companyA.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -16,10 +16,8 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import com.sun.javafx.beans.IDProperty;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Cascade;
 import org.jvnet.hyperjaxb3.xml.bind.annotation.adapters.XMLGregorianCalendarAsDateTime;
 import org.jvnet.hyperjaxb3.xml.bind.annotation.adapters.XmlAdapterUtils;
 import org.jvnet.jaxb2_commons.lang.Equals;
@@ -30,7 +28,6 @@ import org.jvnet.jaxb2_commons.lang.JAXBEqualsStrategy;
 import org.jvnet.jaxb2_commons.lang.JAXBHashCodeStrategy;
 import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 
 /**

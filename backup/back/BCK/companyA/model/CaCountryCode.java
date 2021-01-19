@@ -6,7 +6,7 @@
 //
 
 
-package pl.edu.wit.jpa.dao.companyA.model.backup;
+package pl.edu.wit.jpa.dao.companyA.model;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlType;

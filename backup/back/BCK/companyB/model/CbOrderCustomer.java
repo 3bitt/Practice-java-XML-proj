@@ -80,12 +80,12 @@ public class CbOrderCustomer
 {
 
     protected Long id;
-    protected CbCustomerType type;
-    protected CbPersonData personData;
-    protected CbCompanyData companyData;
-    protected CbContactData contactData;
-    protected List<CbAddress> address;
-    protected List<CbAccount> account;
+    protected pl.edu.wit.jpa.dao.companyB.model.CbCustomerType type;
+    protected pl.edu.wit.jpa.dao.companyB.model.CbPersonData personData;
+    protected pl.edu.wit.jpa.dao.companyB.model.CbCompanyData companyData;
+    protected pl.edu.wit.jpa.dao.companyB.model.CbContactData contactData;
+    protected List<pl.edu.wit.jpa.dao.companyB.model.CbAddress> address;
+    protected List<pl.edu.wit.jpa.dao.companyB.model.CbAccount> account;
 
     /**
      * Gets the value of the id property.
@@ -118,13 +118,13 @@ public class CbOrderCustomer
      * 
      * @return
      *     possible object is
-     *     {@link CbCustomerType }
+     *     {@link pl.edu.wit.jpa.dao.companyB.model.CbCustomerType }
      *     
      */
     @Basic
     @Column(name = "TYPE_", length = 255)
     @Enumerated(EnumType.STRING)
-    public CbCustomerType getType() {
+    public pl.edu.wit.jpa.dao.companyB.model.CbCustomerType getType() {
         return type;
     }
 
@@ -133,10 +133,10 @@ public class CbOrderCustomer
      * 
      * @param value
      *     allowed object is
-     *     {@link CbCustomerType }
+     *     {@link pl.edu.wit.jpa.dao.companyB.model.CbCustomerType }
      *     
      */
-    public void setType(CbCustomerType value) {
+    public void setType(pl.edu.wit.jpa.dao.companyB.model.CbCustomerType value) {
         this.type = value;
     }
 
@@ -145,14 +145,14 @@ public class CbOrderCustomer
      * 
      * @return
      *     possible object is
-     *     {@link CbPersonData }
+     *     {@link pl.edu.wit.jpa.dao.companyB.model.CbPersonData }
      *     
      */
-    @ManyToOne(targetEntity = CbPersonData.class, cascade = {
+    @ManyToOne(targetEntity = pl.edu.wit.jpa.dao.companyB.model.CbPersonData.class, cascade = {
         CascadeType.ALL
     })
     @JoinColumn(name = "PERSONDATA_CBORDERCUSTOMER_H_0")
-    public CbPersonData getPersonData() {
+    public pl.edu.wit.jpa.dao.companyB.model.CbPersonData getPersonData() {
         return personData;
     }
 
@@ -161,10 +161,10 @@ public class CbOrderCustomer
      * 
      * @param value
      *     allowed object is
-     *     {@link CbPersonData }
+     *     {@link pl.edu.wit.jpa.dao.companyB.model.CbPersonData }
      *     
      */
-    public void setPersonData(CbPersonData value) {
+    public void setPersonData(pl.edu.wit.jpa.dao.companyB.model.CbPersonData value) {
         this.personData = value;
     }
 
@@ -173,14 +173,14 @@ public class CbOrderCustomer
      * 
      * @return
      *     possible object is
-     *     {@link CbCompanyData }
+     *     {@link pl.edu.wit.jpa.dao.companyB.model.CbCompanyData }
      *     
      */
-    @ManyToOne(targetEntity = CbCompanyData.class, cascade = {
+    @ManyToOne(targetEntity = pl.edu.wit.jpa.dao.companyB.model.CbCompanyData.class, cascade = {
         CascadeType.ALL
     })
     @JoinColumn(name = "COMPANYDATA_CBORDERCUSTOMER__0")
-    public CbCompanyData getCompanyData() {
+    public pl.edu.wit.jpa.dao.companyB.model.CbCompanyData getCompanyData() {
         return companyData;
     }
 
@@ -189,10 +189,10 @@ public class CbOrderCustomer
      * 
      * @param value
      *     allowed object is
-     *     {@link CbCompanyData }
+     *     {@link pl.edu.wit.jpa.dao.companyB.model.CbCompanyData }
      *     
      */
-    public void setCompanyData(CbCompanyData value) {
+    public void setCompanyData(pl.edu.wit.jpa.dao.companyB.model.CbCompanyData value) {
         this.companyData = value;
     }
 
@@ -201,14 +201,14 @@ public class CbOrderCustomer
      * 
      * @return
      *     possible object is
-     *     {@link CbContactData }
+     *     {@link pl.edu.wit.jpa.dao.companyB.model.CbContactData }
      *     
      */
-    @ManyToOne(targetEntity = CbContactData.class, cascade = {
+    @ManyToOne(targetEntity = pl.edu.wit.jpa.dao.companyB.model.CbContactData.class, cascade = {
         CascadeType.ALL
     })
     @JoinColumn(name = "CONTACTDATA_CBORDERCUSTOMER__0")
-    public CbContactData getContactData() {
+    public pl.edu.wit.jpa.dao.companyB.model.CbContactData getContactData() {
         return contactData;
     }
 
@@ -217,10 +217,10 @@ public class CbOrderCustomer
      * 
      * @param value
      *     allowed object is
-     *     {@link CbContactData }
+     *     {@link pl.edu.wit.jpa.dao.companyB.model.CbContactData }
      *     
      */
-    public void setContactData(CbContactData value) {
+    public void setContactData(pl.edu.wit.jpa.dao.companyB.model.CbContactData value) {
         this.contactData = value;
     }
 
@@ -242,17 +242,17 @@ public class CbOrderCustomer
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link CbAddress }
+     * {@link pl.edu.wit.jpa.dao.companyB.model.CbAddress }
      * 
      * 
      */
-    @OneToMany(targetEntity = CbAddress.class, cascade = {
+    @OneToMany(targetEntity = pl.edu.wit.jpa.dao.companyB.model.CbAddress.class, cascade = {
         CascadeType.ALL
     })
     @JoinColumn(name = "ADDRESS_CBORDERCUSTOMER_ID")
-    public List<CbAddress> getAddress() {
+    public List<pl.edu.wit.jpa.dao.companyB.model.CbAddress> getAddress() {
         if (address == null) {
-            address = new ArrayList<CbAddress>();
+            address = new ArrayList<pl.edu.wit.jpa.dao.companyB.model.CbAddress>();
         }
         return this.address;
     }
@@ -261,7 +261,7 @@ public class CbOrderCustomer
      * 
      * 
      */
-    public void setAddress(List<CbAddress> address) {
+    public void setAddress(List<pl.edu.wit.jpa.dao.companyB.model.CbAddress> address) {
         this.address = address;
     }
 
@@ -283,17 +283,17 @@ public class CbOrderCustomer
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link CbAccount }
+     * {@link pl.edu.wit.jpa.dao.companyB.model.CbAccount }
      * 
      * 
      */
-    @OneToMany(targetEntity = CbAccount.class, cascade = {
+    @OneToMany(targetEntity = pl.edu.wit.jpa.dao.companyB.model.CbAccount.class, cascade = {
         CascadeType.ALL
     })
     @JoinColumn(name = "ACCOUNT_CBORDERCUSTOMER_ID")
-    public List<CbAccount> getAccount() {
+    public List<pl.edu.wit.jpa.dao.companyB.model.CbAccount> getAccount() {
         if (account == null) {
-            account = new ArrayList<CbAccount>();
+            account = new ArrayList<pl.edu.wit.jpa.dao.companyB.model.CbAccount>();
         }
         return this.account;
     }
@@ -302,7 +302,7 @@ public class CbOrderCustomer
      * 
      * 
      */
-    public void setAccount(List<CbAccount> account) {
+    public void setAccount(List<pl.edu.wit.jpa.dao.companyB.model.CbAccount> account) {
         this.account = account;
     }
 
@@ -324,54 +324,54 @@ public class CbOrderCustomer
             }
         }
         {
-            CbCustomerType lhsType;
+            pl.edu.wit.jpa.dao.companyB.model.CbCustomerType lhsType;
             lhsType = this.getType();
-            CbCustomerType rhsType;
+            pl.edu.wit.jpa.dao.companyB.model.CbCustomerType rhsType;
             rhsType = that.getType();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "type", lhsType), LocatorUtils.property(thatLocator, "type", rhsType), lhsType, rhsType)) {
                 return false;
             }
         }
         {
-            CbPersonData lhsPersonData;
+            pl.edu.wit.jpa.dao.companyB.model.CbPersonData lhsPersonData;
             lhsPersonData = this.getPersonData();
-            CbPersonData rhsPersonData;
+            pl.edu.wit.jpa.dao.companyB.model.CbPersonData rhsPersonData;
             rhsPersonData = that.getPersonData();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "personData", lhsPersonData), LocatorUtils.property(thatLocator, "personData", rhsPersonData), lhsPersonData, rhsPersonData)) {
                 return false;
             }
         }
         {
-            CbCompanyData lhsCompanyData;
+            pl.edu.wit.jpa.dao.companyB.model.CbCompanyData lhsCompanyData;
             lhsCompanyData = this.getCompanyData();
-            CbCompanyData rhsCompanyData;
+            pl.edu.wit.jpa.dao.companyB.model.CbCompanyData rhsCompanyData;
             rhsCompanyData = that.getCompanyData();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "companyData", lhsCompanyData), LocatorUtils.property(thatLocator, "companyData", rhsCompanyData), lhsCompanyData, rhsCompanyData)) {
                 return false;
             }
         }
         {
-            CbContactData lhsContactData;
+            pl.edu.wit.jpa.dao.companyB.model.CbContactData lhsContactData;
             lhsContactData = this.getContactData();
-            CbContactData rhsContactData;
+            pl.edu.wit.jpa.dao.companyB.model.CbContactData rhsContactData;
             rhsContactData = that.getContactData();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "contactData", lhsContactData), LocatorUtils.property(thatLocator, "contactData", rhsContactData), lhsContactData, rhsContactData)) {
                 return false;
             }
         }
         {
-            List<CbAddress> lhsAddress;
+            List<pl.edu.wit.jpa.dao.companyB.model.CbAddress> lhsAddress;
             lhsAddress = (((this.address!= null)&&(!this.address.isEmpty()))?this.getAddress():null);
-            List<CbAddress> rhsAddress;
+            List<pl.edu.wit.jpa.dao.companyB.model.CbAddress> rhsAddress;
             rhsAddress = (((that.address!= null)&&(!that.address.isEmpty()))?that.getAddress():null);
             if (!strategy.equals(LocatorUtils.property(thisLocator, "address", lhsAddress), LocatorUtils.property(thatLocator, "address", rhsAddress), lhsAddress, rhsAddress)) {
                 return false;
             }
         }
         {
-            List<CbAccount> lhsAccount;
+            List<pl.edu.wit.jpa.dao.companyB.model.CbAccount> lhsAccount;
             lhsAccount = (((this.account!= null)&&(!this.account.isEmpty()))?this.getAccount():null);
-            List<CbAccount> rhsAccount;
+            List<pl.edu.wit.jpa.dao.companyB.model.CbAccount> rhsAccount;
             rhsAccount = (((that.account!= null)&&(!that.account.isEmpty()))?that.getAccount():null);
             if (!strategy.equals(LocatorUtils.property(thisLocator, "account", lhsAccount), LocatorUtils.property(thatLocator, "account", rhsAccount), lhsAccount, rhsAccount)) {
                 return false;

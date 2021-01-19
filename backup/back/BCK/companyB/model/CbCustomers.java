@@ -38,16 +38,16 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Java class for orderList complex type.
+ * <p>Java class for customers complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="orderList">
+ * &lt;complexType name="customers">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="orders" type="{firmaB}order" maxOccurs="unbounded"/>
+ *         &lt;element name="customer" type="{firmaB}customer" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -57,60 +57,60 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "orderList", propOrder = {
-    "orders"
+@XmlType(name = "customers", propOrder = {
+    "customer"
 })
-@Entity(name = "CbOrderList")
-@Table(name = "CBORDERLIST")
+@Entity(name = "CbCustomers")
+@Table(name = "CBCUSTOMERS")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class CbOrderList
+public class CbCustomers
     implements Serializable, Equals, HashCode
 {
 
     @XmlElement(required = true)
-    protected List<CbOrder> orders;
+    protected List<pl.edu.wit.jpa.dao.companyB.model.CbCustomer> customer;
     @XmlAttribute(name = "Hjid")
     protected Long hjid;
 
     /**
-     * Gets the value of the orders property.
+     * Gets the value of the customer property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the orders property.
+     * This is why there is not a <CODE>set</CODE> method for the customer property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getOrders().add(newItem);
+     *    getCustomer().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link CbOrder }
+     * {@link pl.edu.wit.jpa.dao.companyB.model.CbCustomer }
      * 
      * 
      */
-    @OneToMany(targetEntity = CbOrder.class, cascade = {
+    @OneToMany(targetEntity = pl.edu.wit.jpa.dao.companyB.model.CbCustomer.class, cascade = {
         CascadeType.ALL
     })
-    @JoinColumn(name = "ORDERS_CBORDERLIST_HJID")
-    public List<CbOrder> getOrders() {
-        if (orders == null) {
-            orders = new ArrayList<CbOrder>();
+    @JoinColumn(name = "CUSTOMER_CBCUSTOMERS_HJID")
+    public List<pl.edu.wit.jpa.dao.companyB.model.CbCustomer> getCustomer() {
+        if (customer == null) {
+            customer = new ArrayList<pl.edu.wit.jpa.dao.companyB.model.CbCustomer>();
         }
-        return this.orders;
+        return this.customer;
     }
 
     /**
      * 
      * 
      */
-    public void setOrders(List<CbOrder> orders) {
-        this.orders = orders;
+    public void setCustomer(List<pl.edu.wit.jpa.dao.companyB.model.CbCustomer> customer) {
+        this.customer = customer;
     }
 
     /**
@@ -141,19 +141,19 @@ public class CbOrderList
     }
 
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy strategy) {
-        if (!(object instanceof CbOrderList)) {
+        if (!(object instanceof CbCustomers)) {
             return false;
         }
         if (this == object) {
             return true;
         }
-        final CbOrderList that = ((CbOrderList) object);
+        final CbCustomers that = ((CbCustomers) object);
         {
-            List<CbOrder> lhsOrders;
-            lhsOrders = (((this.orders!= null)&&(!this.orders.isEmpty()))?this.getOrders():null);
-            List<CbOrder> rhsOrders;
-            rhsOrders = (((that.orders!= null)&&(!that.orders.isEmpty()))?that.getOrders():null);
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "orders", lhsOrders), LocatorUtils.property(thatLocator, "orders", rhsOrders), lhsOrders, rhsOrders)) {
+            List<pl.edu.wit.jpa.dao.companyB.model.CbCustomer> lhsCustomer;
+            lhsCustomer = (((this.customer!= null)&&(!this.customer.isEmpty()))?this.getCustomer():null);
+            List<pl.edu.wit.jpa.dao.companyB.model.CbCustomer> rhsCustomer;
+            rhsCustomer = (((that.customer!= null)&&(!that.customer.isEmpty()))?that.getCustomer():null);
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "customer", lhsCustomer), LocatorUtils.property(thatLocator, "customer", rhsCustomer), lhsCustomer, rhsCustomer)) {
                 return false;
             }
         }
@@ -168,9 +168,9 @@ public class CbOrderList
     public int hashCode(ObjectLocator locator, HashCodeStrategy strategy) {
         int currentHashCode = 1;
         {
-            List<CbOrder> theOrders;
-            theOrders = (((this.orders!= null)&&(!this.orders.isEmpty()))?this.getOrders():null);
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "orders", theOrders), currentHashCode, theOrders);
+            List<CbCustomer> theCustomer;
+            theCustomer = (((this.customer!= null)&&(!this.customer.isEmpty()))?this.getCustomer():null);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "customer", theCustomer), currentHashCode, theCustomer);
         }
         return currentHashCode;
     }

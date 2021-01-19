@@ -50,58 +50,58 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CbOrderList }
+     * Create an instance of {@link pl.edu.wit.jpa.dao.companyB.model.CbOrderList }
      * 
      */
-    public CbOrderList createCbOrderList() {
-        return new CbOrderList();
+    public pl.edu.wit.jpa.dao.companyB.model.CbOrderList createCbOrderList() {
+        return new pl.edu.wit.jpa.dao.companyB.model.CbOrderList();
     }
 
     /**
-     * Create an instance of {@link CbContactData }
+     * Create an instance of {@link pl.edu.wit.jpa.dao.companyB.model.CbContactData }
      * 
      */
-    public CbContactData createCbContactData() {
+    public pl.edu.wit.jpa.dao.companyB.model.CbContactData createCbContactData() {
         return new CbContactData();
     }
 
     /**
-     * Create an instance of {@link CbAddress }
+     * Create an instance of {@link pl.edu.wit.jpa.dao.companyB.model.CbAddress }
      * 
      */
-    public CbAddress createCbAddress() {
+    public pl.edu.wit.jpa.dao.companyB.model.CbAddress createCbAddress() {
         return new CbAddress();
     }
 
     /**
-     * Create an instance of {@link CbDocument }
+     * Create an instance of {@link pl.edu.wit.jpa.dao.companyB.model.CbDocument }
      * 
      */
-    public CbDocument createCbDocument() {
+    public pl.edu.wit.jpa.dao.companyB.model.CbDocument createCbDocument() {
         return new CbDocument();
     }
 
     /**
-     * Create an instance of {@link CbCompanyData }
+     * Create an instance of {@link pl.edu.wit.jpa.dao.companyB.model.CbCompanyData }
      * 
      */
-    public CbCompanyData createCbCompanyData() {
+    public pl.edu.wit.jpa.dao.companyB.model.CbCompanyData createCbCompanyData() {
         return new CbCompanyData();
     }
 
     /**
-     * Create an instance of {@link CbPersonData }
+     * Create an instance of {@link pl.edu.wit.jpa.dao.companyB.model.CbPersonData }
      * 
      */
-    public CbPersonData createCbPersonData() {
+    public pl.edu.wit.jpa.dao.companyB.model.CbPersonData createCbPersonData() {
         return new CbPersonData();
     }
 
     /**
-     * Create an instance of {@link CbCustomers }
+     * Create an instance of {@link pl.edu.wit.jpa.dao.companyB.model.CbCustomers }
      * 
      */
-    public CbCustomers createCbCustomers() {
+    public pl.edu.wit.jpa.dao.companyB.model.CbCustomers createCbCustomers() {
         return new CbCustomers();
     }
 
@@ -114,26 +114,26 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CbAccount }
+     * Create an instance of {@link pl.edu.wit.jpa.dao.companyB.model.CbAccount }
      * 
      */
-    public CbAccount createCbAccount() {
+    public pl.edu.wit.jpa.dao.companyB.model.CbAccount createCbAccount() {
         return new CbAccount();
     }
 
     /**
-     * Create an instance of {@link CbCustomer }
+     * Create an instance of {@link pl.edu.wit.jpa.dao.companyB.model.CbCustomer }
      * 
      */
-    public CbCustomer createCbCustomer() {
+    public pl.edu.wit.jpa.dao.companyB.model.CbCustomer createCbCustomer() {
         return new CbCustomer();
     }
 
     /**
-     * Create an instance of {@link CbOrder }
+     * Create an instance of {@link pl.edu.wit.jpa.dao.companyB.model.CbOrder }
      * 
      */
-    public CbOrder createCbOrder() {
+    public pl.edu.wit.jpa.dao.companyB.model.CbOrder createCbOrder() {
         return new CbOrder();
     }
 
@@ -147,12 +147,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link CbOrderList }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link pl.edu.wit.jpa.dao.companyB.model.CbOrderList }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "firmaB", name = "orderSync")
-    public JAXBElement<CbOrderList> createOrderSync(CbOrderList value) {
-        return new JAXBElement<CbOrderList>(_OrderSync_QNAME, CbOrderList.class, null, value);
+    public JAXBElement<pl.edu.wit.jpa.dao.companyB.model.CbOrderList> createOrderSync(pl.edu.wit.jpa.dao.companyB.model.CbOrderList value) {
+        return new JAXBElement<pl.edu.wit.jpa.dao.companyB.model.CbOrderList>(_OrderSync_QNAME, CbOrderList.class, null, value);
     }
 
 }

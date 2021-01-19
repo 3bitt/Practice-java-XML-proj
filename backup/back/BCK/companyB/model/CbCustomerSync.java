@@ -84,7 +84,7 @@ public class CbCustomerSync
     @XmlElement(required = true)
     protected String syncNo;
     @XmlElement(required = true)
-    protected CbCustomers customers;
+    protected pl.edu.wit.jpa.dao.companyB.model.CbCustomers customers;
     @XmlAttribute(name = "Hjid")
     protected Long hjid;
 
@@ -144,14 +144,14 @@ public class CbCustomerSync
      * 
      * @return
      *     possible object is
-     *     {@link CbCustomers }
+     *     {@link pl.edu.wit.jpa.dao.companyB.model.CbCustomers }
      *     
      */
-    @ManyToOne(targetEntity = CbCustomers.class, cascade = {
+    @ManyToOne(targetEntity = pl.edu.wit.jpa.dao.companyB.model.CbCustomers.class, cascade = {
         CascadeType.ALL
     })
     @JoinColumn(name = "CUSTOMERS_CBCUSTOMERSYNC_HJID")
-    public CbCustomers getCustomers() {
+    public pl.edu.wit.jpa.dao.companyB.model.CbCustomers getCustomers() {
         return customers;
     }
 
@@ -160,10 +160,10 @@ public class CbCustomerSync
      * 
      * @param value
      *     allowed object is
-     *     {@link CbCustomers }
+     *     {@link pl.edu.wit.jpa.dao.companyB.model.CbCustomers }
      *     
      */
-    public void setCustomers(CbCustomers value) {
+    public void setCustomers(pl.edu.wit.jpa.dao.companyB.model.CbCustomers value) {
         this.customers = value;
     }
 
@@ -232,9 +232,9 @@ public class CbCustomerSync
             }
         }
         {
-            CbCustomers lhsCustomers;
+            pl.edu.wit.jpa.dao.companyB.model.CbCustomers lhsCustomers;
             lhsCustomers = this.getCustomers();
-            CbCustomers rhsCustomers;
+            pl.edu.wit.jpa.dao.companyB.model.CbCustomers rhsCustomers;
             rhsCustomers = that.getCustomers();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "customers", lhsCustomers), LocatorUtils.property(thatLocator, "customers", rhsCustomers), lhsCustomers, rhsCustomers)) {
                 return false;

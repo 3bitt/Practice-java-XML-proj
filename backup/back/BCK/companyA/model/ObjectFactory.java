@@ -6,7 +6,7 @@
 //
 
 
-package pl.edu.wit.jpa.dao.companyA.model.backup;
+package pl.edu.wit.jpa.dao.companyA.model;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
@@ -42,11 +42,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CaOrders }
+     * Create an instance of {@link pl.edu.wit.jpa.dao.companyA.model.CaOrders }
      * 
      */
-    public CaOrders createCaOrders() {
-        return new CaOrders();
+    public pl.edu.wit.jpa.dao.companyA.model.CaOrders createCaOrders() {
+        return new pl.edu.wit.jpa.dao.companyA.model.CaOrders();
     }
 
     /**
@@ -58,10 +58,10 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CaAddress }
+     * Create an instance of {@link pl.edu.wit.jpa.dao.companyA.model.CaAddress }
      * 
      */
-    public CaAddress createCaAddress() {
+    public pl.edu.wit.jpa.dao.companyA.model.CaAddress createCaAddress() {
         return new CaAddress();
     }
 
@@ -82,18 +82,18 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CaAccount }
+     * Create an instance of {@link pl.edu.wit.jpa.dao.companyA.model.CaAccount }
      * 
      */
-    public CaAccount createCaAccount() {
+    public pl.edu.wit.jpa.dao.companyA.model.CaAccount createCaAccount() {
         return new CaAccount();
     }
 
     /**
-     * Create an instance of {@link CaOrder }
+     * Create an instance of {@link pl.edu.wit.jpa.dao.companyA.model.CaOrder }
      * 
      */
-    public CaOrder createCaOrder() {
+    public pl.edu.wit.jpa.dao.companyA.model.CaOrder createCaOrder() {
         return new CaOrder();
     }
 
@@ -107,12 +107,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link CaOrders }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link pl.edu.wit.jpa.dao.companyA.model.CaOrders }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "", name = "orders")
-    public JAXBElement<CaOrders> createOrders(CaOrders value) {
-        return new JAXBElement<CaOrders>(_Orders_QNAME, CaOrders.class, null, value);
+    public JAXBElement<pl.edu.wit.jpa.dao.companyA.model.CaOrders> createOrders(pl.edu.wit.jpa.dao.companyA.model.CaOrders value) {
+        return new JAXBElement<pl.edu.wit.jpa.dao.companyA.model.CaOrders>(_Orders_QNAME, CaOrders.class, null, value);
     }
 
 }

@@ -6,31 +6,27 @@
 //
 
 
-package pl.edu.wit.jpa.dao.companyA.model.backup;
+package pl.edu.wit.jpa.dao.companyA.model;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import javax.persistence.*;
-import javax.xml.bind.annotation.*;
-import javax.xml.datatype.XMLGregorianCalendar;
-
+import com.sun.xml.bind.annotation.XmlLocation;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.jvnet.hyperjaxb3.xml.bind.annotation.adapters.XMLGregorianCalendarAsDateTime;
 import org.jvnet.hyperjaxb3.xml.bind.annotation.adapters.XmlAdapterUtils;
-import org.jvnet.jaxb2_commons.lang.Equals;
-import org.jvnet.jaxb2_commons.lang.EqualsStrategy;
-import org.jvnet.jaxb2_commons.lang.HashCode;
-import org.jvnet.jaxb2_commons.lang.HashCodeStrategy;
-import org.jvnet.jaxb2_commons.lang.JAXBEqualsStrategy;
-import org.jvnet.jaxb2_commons.lang.JAXBHashCodeStrategy;
+import org.jvnet.jaxb2_commons.lang.*;
 import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
+
+import javax.persistence.*;
+import javax.xml.bind.annotation.*;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 
 
 /**
@@ -46,7 +42,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/>
  *         &lt;element name="date" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
  *         &lt;element name="synchronizeNo" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="customerDatas" type="{firmaA}customerData" maxOccurs="unbounded"/>
+ *         &lt;element name="customerData" type="{firmaA}customerData" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -60,7 +56,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 @XmlRootElement(name = "customerDatas")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "customerDataList", propOrder = {
-    "id",
+        "id",
     "date",
     "synchronizeNo",
     "customerDatas"
@@ -89,6 +85,7 @@ public class CaCustomerDataList
      *     {@link Long }
      *     
      */
+    @XmlTransient
     @Id
     @Column(name = "id", scale = 0)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -160,18 +157,18 @@ public class CaCustomerDataList
     }
 
     /**
-     * Gets the value of the customerDatas property.
+     * Gets the value of the customerData property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the customerDatas property.
+     * This is why there is not a <CODE>set</CODE> method for the customerData property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getCustomerDatas().add(newItem);
+     *    getcustomerDatas().add(newItem);
      * </pre>
      * 
      * 
@@ -188,7 +185,7 @@ public class CaCustomerDataList
             )
     @JoinColumn(name = "CUSTOMERDATAS_CACUSTOMERDATA_0")
     @LazyCollection(LazyCollectionOption.FALSE)
-    public List<CaCustomerData> getCustomerDatas() {
+    public List<CaCustomerData> getcustomerDatas() {
         if (customerDatas == null) {
             customerDatas = new ArrayList<CaCustomerData>();
         }
@@ -199,8 +196,8 @@ public class CaCustomerDataList
      * 
      * 
      */
-    public void setCustomerDatas(List<CaCustomerData> customerDatas) {
-        this.customerDatas = customerDatas;
+    public void setcustomerData(List<CaCustomerData> customerData) {
+        this.customerDatas = customerData;
     }
 
     @Basic
@@ -250,11 +247,11 @@ public class CaCustomerDataList
             }
         }
         {
-            List<CaCustomerData> lhsCustomerDatas;
-            lhsCustomerDatas = (((this.customerDatas!= null)&&(!this.customerDatas.isEmpty()))?this.getCustomerDatas():null);
-            List<CaCustomerData> rhsCustomerDatas;
-            rhsCustomerDatas = (((that.customerDatas!= null)&&(!that.customerDatas.isEmpty()))?that.getCustomerDatas():null);
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "customerDatas", lhsCustomerDatas), LocatorUtils.property(thatLocator, "customerDatas", rhsCustomerDatas), lhsCustomerDatas, rhsCustomerDatas)) {
+            List<CaCustomerData> lhscustomerData;
+            lhscustomerData = (((this.customerDatas != null)&&(!this.customerDatas.isEmpty()))?this.getcustomerDatas():null);
+            List<CaCustomerData> rhscustomerData;
+            rhscustomerData = (((that.customerDatas != null)&&(!that.customerDatas.isEmpty()))?that.getcustomerDatas():null);
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "customerData", lhscustomerData), LocatorUtils.property(thatLocator, "customerData", rhscustomerData), lhscustomerData, rhscustomerData)) {
                 return false;
             }
         }
@@ -284,9 +281,9 @@ public class CaCustomerDataList
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "synchronizeNo", theSynchronizeNo), currentHashCode, theSynchronizeNo);
         }
         {
-            List<CaCustomerData> theCustomerDatas;
-            theCustomerDatas = (((this.customerDatas!= null)&&(!this.customerDatas.isEmpty()))?this.getCustomerDatas():null);
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "customerDatas", theCustomerDatas), currentHashCode, theCustomerDatas);
+            List<CaCustomerData> thecustomerData;
+            thecustomerData = (((this.customerDatas != null)&&(!this.customerDatas.isEmpty()))?this.getcustomerDatas():null);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "customerData", thecustomerData), currentHashCode, thecustomerData);
         }
         return currentHashCode;
     }

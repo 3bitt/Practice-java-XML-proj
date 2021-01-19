@@ -90,9 +90,9 @@ public class CbCustomer
     @XmlElement(required = true)
     protected CbContactData contactData;
     @XmlElement(required = true)
-    protected List<CbAddress> address;
+    protected List<pl.edu.wit.jpa.dao.companyB.model.CbAddress> address;
     @XmlElement(required = true)
-    protected List<CbAccount> account;
+    protected List<pl.edu.wit.jpa.dao.companyB.model.CbAccount> account;
 
     /**
      * Gets the value of the id property.
@@ -241,17 +241,17 @@ public class CbCustomer
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link CbAddress }
+     * {@link pl.edu.wit.jpa.dao.companyB.model.CbAddress }
      * 
      * 
      */
-    @OneToMany(targetEntity = CbAddress.class, cascade = {
+    @OneToMany(targetEntity = pl.edu.wit.jpa.dao.companyB.model.CbAddress.class, cascade = {
         CascadeType.ALL
     })
     @JoinColumn(name = "ADDRESS_CBCUSTOMER_ID")
-    public List<CbAddress> getAddress() {
+    public List<pl.edu.wit.jpa.dao.companyB.model.CbAddress> getAddress() {
         if (address == null) {
-            address = new ArrayList<CbAddress>();
+            address = new ArrayList<pl.edu.wit.jpa.dao.companyB.model.CbAddress>();
         }
         return this.address;
     }
@@ -260,7 +260,7 @@ public class CbCustomer
      * 
      * 
      */
-    public void setAddress(List<CbAddress> address) {
+    public void setAddress(List<pl.edu.wit.jpa.dao.companyB.model.CbAddress> address) {
         this.address = address;
     }
 
@@ -282,17 +282,17 @@ public class CbCustomer
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link CbAccount }
+     * {@link pl.edu.wit.jpa.dao.companyB.model.CbAccount }
      * 
      * 
      */
-    @OneToMany(targetEntity = CbAccount.class, cascade = {
+    @OneToMany(targetEntity = pl.edu.wit.jpa.dao.companyB.model.CbAccount.class, cascade = {
         CascadeType.ALL
     })
     @JoinColumn(name = "ACCOUNT_CBCUSTOMER_ID")
-    public List<CbAccount> getAccount() {
+    public List<pl.edu.wit.jpa.dao.companyB.model.CbAccount> getAccount() {
         if (account == null) {
-            account = new ArrayList<CbAccount>();
+            account = new ArrayList<pl.edu.wit.jpa.dao.companyB.model.CbAccount>();
         }
         return this.account;
     }
@@ -301,7 +301,7 @@ public class CbCustomer
      * 
      * 
      */
-    public void setAccount(List<CbAccount> account) {
+    public void setAccount(List<pl.edu.wit.jpa.dao.companyB.model.CbAccount> account) {
         this.account = account;
     }
 
@@ -359,18 +359,18 @@ public class CbCustomer
             }
         }
         {
-            List<CbAddress> lhsAddress;
+            List<pl.edu.wit.jpa.dao.companyB.model.CbAddress> lhsAddress;
             lhsAddress = (((this.address!= null)&&(!this.address.isEmpty()))?this.getAddress():null);
-            List<CbAddress> rhsAddress;
+            List<pl.edu.wit.jpa.dao.companyB.model.CbAddress> rhsAddress;
             rhsAddress = (((that.address!= null)&&(!that.address.isEmpty()))?that.getAddress():null);
             if (!strategy.equals(LocatorUtils.property(thisLocator, "address", lhsAddress), LocatorUtils.property(thatLocator, "address", rhsAddress), lhsAddress, rhsAddress)) {
                 return false;
             }
         }
         {
-            List<CbAccount> lhsAccount;
+            List<pl.edu.wit.jpa.dao.companyB.model.CbAccount> lhsAccount;
             lhsAccount = (((this.account!= null)&&(!this.account.isEmpty()))?this.getAccount():null);
-            List<CbAccount> rhsAccount;
+            List<pl.edu.wit.jpa.dao.companyB.model.CbAccount> rhsAccount;
             rhsAccount = (((that.account!= null)&&(!that.account.isEmpty()))?that.getAccount():null);
             if (!strategy.equals(LocatorUtils.property(thisLocator, "account", lhsAccount), LocatorUtils.property(thatLocator, "account", rhsAccount), lhsAccount, rhsAccount)) {
                 return false;

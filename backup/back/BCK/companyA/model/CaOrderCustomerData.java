@@ -6,7 +6,7 @@
 //
 
 
-package pl.edu.wit.jpa.dao.companyA.model.backup;
+package pl.edu.wit.jpa.dao.companyA.model;
 
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -106,17 +106,17 @@ public class CaOrderCustomerData
     protected String name;
     protected String surname;
     protected String pesel;
-    protected CaCountryCode documentCountry;
-    protected CaDocumentType documentType;
+    protected pl.edu.wit.jpa.dao.companyA.model.CaCountryCode documentCountry;
+    protected pl.edu.wit.jpa.dao.companyA.model.CaDocumentType documentType;
     protected String documentNumber;
     protected String companyName;
     protected BigInteger nip;
     protected List<String> phone;
     protected List<String> email;
-    protected List<CaAddress> address;
-    protected List<CaAccount> account;
+    protected List<pl.edu.wit.jpa.dao.companyA.model.CaAddress> address;
+    protected List<pl.edu.wit.jpa.dao.companyA.model.CaAccount> account;
     @XmlAttribute(name = "type")
-    protected CaCustomerDataType type;
+    protected pl.edu.wit.jpa.dao.companyA.model.CaCustomerDataType type;
 
 //    @XmlTransient
 //    @OneToMany(targetEntity = CaOrder.class,orphanRemoval = true,mappedBy = "sender",cascade = { CascadeType.ALL })
@@ -236,13 +236,13 @@ public class CaOrderCustomerData
      * 
      * @return
      *     possible object is
-     *     {@link CaCountryCode }
+     *     {@link pl.edu.wit.jpa.dao.companyA.model.CaCountryCode }
      *     
      */
     @Basic
     @Column(name = "DOCUMENTCOUNTRY", length = 255)
     @Enumerated(EnumType.STRING)
-    public CaCountryCode getDocumentCountry() {
+    public pl.edu.wit.jpa.dao.companyA.model.CaCountryCode getDocumentCountry() {
         return documentCountry;
     }
 
@@ -251,10 +251,10 @@ public class CaOrderCustomerData
      * 
      * @param value
      *     allowed object is
-     *     {@link CaCountryCode }
+     *     {@link pl.edu.wit.jpa.dao.companyA.model.CaCountryCode }
      *     
      */
-    public void setDocumentCountry(CaCountryCode value) {
+    public void setDocumentCountry(pl.edu.wit.jpa.dao.companyA.model.CaCountryCode value) {
         this.documentCountry = value;
     }
 
@@ -263,13 +263,13 @@ public class CaOrderCustomerData
      * 
      * @return
      *     possible object is
-     *     {@link CaDocumentType }
+     *     {@link pl.edu.wit.jpa.dao.companyA.model.CaDocumentType }
      *     
      */
     @Basic
     @Column(name = "DOCUMENTTYPE", length = 255)
     @Enumerated(EnumType.STRING)
-    public CaDocumentType getDocumentType() {
+    public pl.edu.wit.jpa.dao.companyA.model.CaDocumentType getDocumentType() {
         return documentType;
     }
 
@@ -278,10 +278,10 @@ public class CaOrderCustomerData
      * 
      * @param value
      *     allowed object is
-     *     {@link CaDocumentType }
+     *     {@link pl.edu.wit.jpa.dao.companyA.model.CaDocumentType }
      *     
      */
-    public void setDocumentType(CaDocumentType value) {
+    public void setDocumentType(pl.edu.wit.jpa.dao.companyA.model.CaDocumentType value) {
         this.documentType = value;
     }
 
@@ -467,18 +467,18 @@ public class CaOrderCustomerData
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link CaAddress }
+     * {@link pl.edu.wit.jpa.dao.companyA.model.CaAddress }
      * 
      * 
      */
-    @OneToMany(targetEntity = CaAddress.class, orphanRemoval = true, cascade = {
+    @OneToMany(targetEntity = pl.edu.wit.jpa.dao.companyA.model.CaAddress.class, orphanRemoval = true, cascade = {
         CascadeType.ALL
     })
     @JoinColumn(name = "ADDRESS_CAORDERCUSTOMERDATA__0")
     @LazyCollection(LazyCollectionOption.FALSE)
-    public List<CaAddress> getAddress() {
+    public List<pl.edu.wit.jpa.dao.companyA.model.CaAddress> getAddress() {
         if (address == null) {
-            address = new ArrayList<CaAddress>();
+            address = new ArrayList<pl.edu.wit.jpa.dao.companyA.model.CaAddress>();
         }
         return this.address;
     }
@@ -487,7 +487,7 @@ public class CaOrderCustomerData
      * 
      * 
      */
-    public void setAddress(List<CaAddress> address) {
+    public void setAddress(List<pl.edu.wit.jpa.dao.companyA.model.CaAddress> address) {
         this.address = address;
     }
 
@@ -509,18 +509,18 @@ public class CaOrderCustomerData
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link CaAccount }
+     * {@link pl.edu.wit.jpa.dao.companyA.model.CaAccount }
      * 
      * 
      */
-    @OneToMany(targetEntity = CaAccount.class, orphanRemoval = true, cascade = {
+    @OneToMany(targetEntity = pl.edu.wit.jpa.dao.companyA.model.CaAccount.class, orphanRemoval = true, cascade = {
         CascadeType.ALL
     })
     @JoinColumn(name = "ACCOUNT_CAORDERCUSTOMERDATA__0")
     @LazyCollection(LazyCollectionOption.FALSE)
-    public List<CaAccount> getAccount() {
+    public List<pl.edu.wit.jpa.dao.companyA.model.CaAccount> getAccount() {
         if (account == null) {
-            account = new ArrayList<CaAccount>();
+            account = new ArrayList<pl.edu.wit.jpa.dao.companyA.model.CaAccount>();
         }
         return this.account;
     }
@@ -529,7 +529,7 @@ public class CaOrderCustomerData
      * 
      * 
      */
-    public void setAccount(List<CaAccount> account) {
+    public void setAccount(List<pl.edu.wit.jpa.dao.companyA.model.CaAccount> account) {
         this.account = account;
     }
 
@@ -538,13 +538,13 @@ public class CaOrderCustomerData
      * 
      * @return
      *     possible object is
-     *     {@link CaCustomerDataType }
+     *     {@link pl.edu.wit.jpa.dao.companyA.model.CaCustomerDataType }
      *     
      */
     @Basic
     @Column(name = "TYPE_", length = 255)
     @Enumerated(EnumType.STRING)
-    public CaCustomerDataType getType() {
+    public pl.edu.wit.jpa.dao.companyA.model.CaCustomerDataType getType() {
         return type;
     }
 
@@ -553,10 +553,10 @@ public class CaOrderCustomerData
      * 
      * @param value
      *     allowed object is
-     *     {@link CaCustomerDataType }
+     *     {@link pl.edu.wit.jpa.dao.companyA.model.CaCustomerDataType }
      *     
      */
-    public void setType(CaCustomerDataType value) {
+    public void setType(pl.edu.wit.jpa.dao.companyA.model.CaCustomerDataType value) {
         this.type = value;
     }
 
@@ -605,18 +605,18 @@ public class CaOrderCustomerData
             }
         }
         {
-            CaCountryCode lhsDocumentCountry;
+            pl.edu.wit.jpa.dao.companyA.model.CaCountryCode lhsDocumentCountry;
             lhsDocumentCountry = this.getDocumentCountry();
-            CaCountryCode rhsDocumentCountry;
+            pl.edu.wit.jpa.dao.companyA.model.CaCountryCode rhsDocumentCountry;
             rhsDocumentCountry = that.getDocumentCountry();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "documentCountry", lhsDocumentCountry), LocatorUtils.property(thatLocator, "documentCountry", rhsDocumentCountry), lhsDocumentCountry, rhsDocumentCountry)) {
                 return false;
             }
         }
         {
-            CaDocumentType lhsDocumentType;
+            pl.edu.wit.jpa.dao.companyA.model.CaDocumentType lhsDocumentType;
             lhsDocumentType = this.getDocumentType();
-            CaDocumentType rhsDocumentType;
+            pl.edu.wit.jpa.dao.companyA.model.CaDocumentType rhsDocumentType;
             rhsDocumentType = that.getDocumentType();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "documentType", lhsDocumentType), LocatorUtils.property(thatLocator, "documentType", rhsDocumentType), lhsDocumentType, rhsDocumentType)) {
                 return false;
@@ -668,27 +668,27 @@ public class CaOrderCustomerData
             }
         }
         {
-            List<CaAddress> lhsAddress;
+            List<pl.edu.wit.jpa.dao.companyA.model.CaAddress> lhsAddress;
             lhsAddress = (((this.address!= null)&&(!this.address.isEmpty()))?this.getAddress():null);
-            List<CaAddress> rhsAddress;
+            List<pl.edu.wit.jpa.dao.companyA.model.CaAddress> rhsAddress;
             rhsAddress = (((that.address!= null)&&(!that.address.isEmpty()))?that.getAddress():null);
             if (!strategy.equals(LocatorUtils.property(thisLocator, "address", lhsAddress), LocatorUtils.property(thatLocator, "address", rhsAddress), lhsAddress, rhsAddress)) {
                 return false;
             }
         }
         {
-            List<CaAccount> lhsAccount;
+            List<pl.edu.wit.jpa.dao.companyA.model.CaAccount> lhsAccount;
             lhsAccount = (((this.account!= null)&&(!this.account.isEmpty()))?this.getAccount():null);
-            List<CaAccount> rhsAccount;
+            List<pl.edu.wit.jpa.dao.companyA.model.CaAccount> rhsAccount;
             rhsAccount = (((that.account!= null)&&(!that.account.isEmpty()))?that.getAccount():null);
             if (!strategy.equals(LocatorUtils.property(thisLocator, "account", lhsAccount), LocatorUtils.property(thatLocator, "account", rhsAccount), lhsAccount, rhsAccount)) {
                 return false;
             }
         }
         {
-            CaCustomerDataType lhsType;
+            pl.edu.wit.jpa.dao.companyA.model.CaCustomerDataType lhsType;
             lhsType = this.getType();
-            CaCustomerDataType rhsType;
+            pl.edu.wit.jpa.dao.companyA.model.CaCustomerDataType rhsType;
             rhsType = that.getType();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "type", lhsType), LocatorUtils.property(thatLocator, "type", rhsType), lhsType, rhsType)) {
                 return false;
