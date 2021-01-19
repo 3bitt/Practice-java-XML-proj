@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
-import org.xml.sax.EntityResolver;
 import org.xml.sax.SAXException;
 import pl.edu.wit.controller.JaxbFactory;
 import pl.edu.wit.jpa.dao.companyA.model.*;
@@ -14,13 +13,11 @@ import pl.edu.wit.jpa.repository.firmaA.customer.CustomerDataListRepository;
 import pl.edu.wit.jpa.repository.firmaA.order.*;
 import pl.edu.wit.jpa.dao.companyA.model.CaOrders;
 
-import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 import javax.xml.bind.*;
 import javax.xml.transform.stream.StreamSource;
-import java.io.ByteArrayInputStream;
-import java.io.FileReader;
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @ShellComponent("KLIENT")
@@ -29,7 +26,7 @@ public class XMLControllerCommands {
     @Autowired
     private JaxbFactory jaxbFactory;
 
-//    @Autowired
+    //    @Autowired
 //    private AccountRepository accountRepo;
     @Autowired
     private CustomerDataListRepository customerListRepo;
@@ -50,8 +47,7 @@ public class XMLControllerCommands {
     private OrderMasterImpl orderMaster;
 
     public static <T> T unmarshalXml(Class<T> clazz, StreamSource queryResults,
-                                     String contextNamespace)
-    {
+                                     String contextNamespace) {
         T resultObject = null;
         try {
             //Create instance of the JAXBContext from the class-name
@@ -61,16 +57,11 @@ public class XMLControllerCommands {
             resultObject = clazz.cast(u.unmarshal(queryResults));
         }
         //Put your own error-handling here.
-        catch(JAXBException e)
-        {
+        catch (JAXBException e) {
             e.printStackTrace();
-        }
-        catch (ClassCastException e)
-        {
+        } catch (ClassCastException e) {
             e.printStackTrace();
-        }
-        catch (ClassNotFoundException e)
-        {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return clazz.cast(resultObject);
@@ -78,11 +69,10 @@ public class XMLControllerCommands {
 
     @ShellMethod("Załaduj plik z danymi klientów podając nazwe pliku jako argument")
     public void laduj(
-            @ShellOption(defaultValue="customerDatas.xml") String plik) throws JAXBException, IOException, SAXException, ClassNotFoundException {
+            @ShellOption(defaultValue = "customerDatas.xml") String plik) throws JAXBException, IOException, SAXException {
 
 //        JAXBContext context = JAXBContext.newInstance();
 //        Unmarshaller jaxb = context.createUnmarshaller();
-//
 //
 //        if (plik.equals("customerDatas.xml")) {
 //            jaxb = jaxbFactory.getUnmarshaller(ObjectFactory.class, "Firma_A.xsd");
@@ -94,49 +84,28 @@ public class XMLControllerCommands {
 //            System.err.println("Możliwe nazwy: [customerDatas.xml] lub [customerSync.xml]");
 //            return;
 //        }
-        JAXBContext context = JAXBContext.newInstance(CaCustomerDataList.class);
-        Unmarshaller jaxb = context.createUnmarshaller();
 
-//        try {
+
+        try {
 //      ### Get root to fix missing XmlRootElement in jaxb class when unmarshalling
-            JAXBElement<CaCustomerDataList> root =
-                    jaxb.unmarshal(new StreamSource(plik), CaCustomerDataList.class);
-            CaCustomerDataList customerData = root.getValue();
+//            JAXBElement<CaCustomerDataList> root =
+//                    jaxb.unmarshal(new StreamSource(plik), CaCustomerDataList.class);
+//            CaCustomerDataList customerData = root.getValue();
 
-//        CaCustomerDataList list = unmarshalXml(CaCustomerDataList.class,new StreamSource(plik),"firmaA"+ "." + "MessageClass");
-
-
-
-//        CaCustomerDataList list = (CaCustomerDataList) jaxb.unmarshal(new FileReader(plik));
-//        CaCustomerData list = (CaCustomerData) jaxb.unmarshal(new FileReader(plik));
+            Unmarshaller jaxb = jaxbFactory.getUnmarshaller(CaCustomerDataList.class, "FIRMA_A.xsd", plik);
+            CaCustomerDataList customerData = (CaCustomerDataList) jaxb.unmarshal(new File(plik));
 
 
-//        System.out.println(list.getCustomerDatas());
-        //      #### Zapisujemy customerDataList jako pojedyńczy obiekt bez zagnieżdzonych obiektów
-//            CaCustomerDataList list = new CaCustomerDataList();
-//            list.setDateItem(customerData.getDateItem());
-//            list.setSynchronizeNo(customerData.getSynchronizeNo());
+            customerListImpl.saveParent(customerData);
 
-        customerListImpl.saveParent(customerData);
+        } catch (UnmarshalException ignored){ }
 
-//        for (CaCustomerData cust : customerData.getCustomerDatas()){
-//
-//            customerRepoImpl.save(cust);
-//        }
-
-//
-//      #### Zapisujemy liste klientów wraz z zagnieżdzonymi elementami (adres, konta, itd.)
-//            customerRepoImpl.saveAll(customerData.getCustomerDatas());
-
-//        } catch (JAXBException e) {
-//            System.out.println("Exception: " + e);
-//        }
     }
 
 
     @ShellMethod("Zaladuj zamowienia klientow")
     public void ladujZamowienia(
-            @ShellOption(defaultValue="orders.xml") String plik) throws JAXBException, IOException, SAXException, ClassNotFoundException {
+            @ShellOption(defaultValue = "orders2.xml") String plik) throws JAXBException, IOException, SAXException, ClassNotFoundException {
 
         JAXBContext context = JAXBContext.newInstance(CaOrders.class);
         Unmarshaller jaxb = context.createUnmarshaller();
@@ -146,6 +115,9 @@ public class XMLControllerCommands {
         JAXBElement<CaOrders> root =
                 jaxb.unmarshal(new StreamSource(plik), CaOrders.class);
         CaOrders orders = root.getValue();
+
+//        Marshaller marsh = jaxbFactory.getMarshaller(CaOrders.class);
+//        marsh.marshal(orders, new File("Test.xml"));
 //
 //        if (plik.equals("orders.xml")) {
 //            jaxb = jaxbFactory.getUnmarshaller(ObjectFactory.class, "Firma_A.xsd");
@@ -157,107 +129,93 @@ public class XMLControllerCommands {
 //            return;
 //        }
 
-//        try {
-//      ### Get root to fix missing XmlRootElement in jaxb class when unmarshalling
-//            CaOrders root =
-//                    CaOrders.class.cast(jaxb.unmarshal(new StreamSource(plik), CaOrders.class));
-//            CaOrders customerOrders = root.getValue();
-
-        orderMaster.save(orders);
-//            CaOrders orders = unmarshalXml(CaOrders.class, new StreamSource(plik),"firmaA"+ "." + "MessageClass");
-
-//      #### Zapisujemy customerDataList jako pojedyńczy obiekt bez zagnieżdzonych obiektów
-//            CaOrders list = new CaOrders();
-//            list.setId(customerOrders.getId());
-//            list.setDateItem(customerOrders.getDateItem());
-//            list.setSynchronizeNo(customerOrders.getSynchronizeNo())
-//            orderMaster.saveParentOrder(orders);
-//            for (CaOrder order : orders.getOrder()){
-//                System.out.println("ELO");
-//                System.out.println("asdfdsaf: " + order.getSender().getId());
-//                orderMaster.saveChildOrder(order);
-//            }
-
-//            orderMaster.saveParentOrder(orders);
-
-
-
-            //            ordersRepo.save(customerOrders);
-
-//      #### Zapisujemy liste klientów wraz z zagnieżdzonymi elementami (adres, konta, itd.)
-//            List<CaOrder> orderList = customerOrders.getOrder();
-////            orderRepoImpl.saveOrders(orderList);
-//            for (CaOrder order : orderList){
-//                CaCustomerData sender = customerRepoImpl.findCustomerById(order.getSender().getId());
-//                CaCustomerData recipient = customerRepoImpl.findCustomerById(order.getRecipient().getId());
-//
-//                if (sender == null) {
-//                    System.err.println("[Sender] Nie ma takiego klienta w bazie:\n" +
-//                            order.getSender().getName() +
-//                            order.getSender().getSurname() );
-//                    continue;
-//                }
-//                if (recipient == null) {
-//                    System.err.println("[Recipient] Nie ma takiego klienta w bazie:\n" +
-//                            order.getRecipient().getName() +
-//                            order.getRecipient().getSurname() );
-//                    continue;
-//                }
-//
-//                boolean validAccount = false;
-//                for (CaAccount acc : recipient.getAccount()){
-//                    if (acc.getNumber().equals(order.getAccountNumber())) {
-//                        validAccount = true;
-//                        break;
-//                    }
-//                }
-//                if (validAccount){
-//                    System.out.println("\n\nZamowienie wyglada okej!\n\n");
-//                    orderCustomerRepo.save(order.getSender());
-//                    orderCustomerRepo.save(order.getRecipient());
-//                    orderRepoImpl.saveOrder(order);
-//                } else {
-//                    System.err.println(
-//                            "Odbiorca nie posiada podanego numeru konta" +
-//                            "\n[Numer konta]: " + order.getAccountNumber() +
-//                            "\n[Odbiorca] " + recipient.getName() + recipient.getSurname()
-//                    );
-//                }
-//            }
-
-//        } catch (JAXBException e) {
-//            System.out.println("Exception: " + e);
+//        for (CaOrder order : orders.getOrder()){
+//            CaOrderCustomerData sender = order.getSender();
 //        }
 
+        Unmarshaller un = jaxbFactory.getUnmarshaller(CaOrders.class, "FIRMA_A.xsd", plik);
+        CaOrders or = (CaOrders) un.unmarshal(new File(plik));
+
+
+        orderMaster.processOrders(or);
 
 
     }
 
-    @ShellMethod("Generate dummy xml")
-    public void wyladuj() throws JAXBException, IOException {
+    @ShellMethod("Pokaz klientow")
+    public void pokazKlientow() {
+
+        List<CaCustomerData> customers = customerRepoImpl.findCustomer();
+        if (customers.isEmpty()){
+            System.err.println("\n\n----- Brak klientów ----- \n" +
+                    "----- Załaduj dane -----\n");
+        } else {
+            System.out.println("-----------------------------------------------------------------------------------------------");
+            System.out.printf("%4s %12s %15s %13s %13s %12s %13s %13s", "ID", "Comp. NAME", "NAME", "SURNAME", "PESEL", "NIP","ADDRESS_ID","ACCOUNT_ID");
+            System.out.println();
+            System.out.println("-----------------------------------------------------------------------------------------------");
 
 
-
-//        Marshaller mar = jaxbFactory.getMarshaller(CaAccount.class);
-//        mar.marshal(new JAXBElement<CaAccount>(new QName("firmaB", "account"),CaAccount.class, account),new File("./account.xml"));
-
+            for (CaCustomerData customer : customers) {
+                List<Long> addressIds = new ArrayList<>();
+                List<Long> accountIds = new ArrayList<>();
+                for (CaAddress address : customer.getAddress()){
+                    addressIds.add(address.getId());
+                }
+                for (CaAccount account : customer.getAccount()){
+                    accountIds.add(account.getId());
+                }
+                System.out.format("%4s %12s %15s %13s %13s %12s %10s %13s",
+                        customer.getId(), customer.getCompanyName(), customer.getName(), customer.getSurname(), customer.getPesel(), customer.getNip(), addressIds.toString(),accountIds.toString());
+                System.out.println();
+            }
+            System.out.println("-----------------------------------------------------------------------------------------------");
+        }
     }
 
+    @ShellMethod("Pokaz adresy")
+    public void pokazAdresy(){
+        List<CaAddress> addresses = customerRepoImpl.findAddresses();
+
+        if (addresses.isEmpty()){
+            System.err.println("\n\n----- Brak adresów ----- \n" +
+                    "----- Załaduj dane -----\n");
+        } else {
+            System.out.println("-----------------------------------------------------------------------------------------");
+            System.out.printf("%4s %14s %15s %13s %13s %13s %12s", "ID", "STREET", "STREET NO", "HOME NO", "CITY", "POSTAL CODE", "COUNTRY");
+            System.out.println();
+            System.out.println("-----------------------------------------------------------------------------------------");
+
+
+            for (CaAddress address : addresses) {
+                System.out.format("%4s %14s %15s %13s %13s %12s %8s",
+                        address.getId(), address.getStreet(), address.getStreetNo(), address.getHomeNo(), address.getCity(), address.getPostalCode(),address.getCountryCode());
+                System.out.println();
+            }
+            System.out.println("-----------------------------------------------------------------------------------------");
+        }
+    }
+
+    @ShellMethod("Pokaz konta")
+    public void pokazKonta(){
+        List<CaAccount> accounts = customerRepoImpl.findAccounts();
+        if (accounts.isEmpty()){
+            System.err.println("\n\n----- Brak kont ----- \n" +
+                    "----- Załaduj dane -----\n");
+        } else {
+            System.out.println("-----------------------------------------------------------------------------------------");
+            System.out.printf("%4s %23s %27s %20s", "ID", "NAME", "NUMBER", "COUNTRY");
+            System.out.println();
+            System.out.println("-----------------------------------------------------------------------------------------");
+
+
+            for (CaAccount account : accounts) {
+                System.out.format("%4s %23s %27s %20s",
+                        account.getId(), account.getName(), account.getNumber(), account.getCountryCode());
+                System.out.println();
+            }
+            System.out.println("-----------------------------------------------------------------------------------------");
+        }
+
+    }
 }
-
-
-// ###### Kawalek kodu ze stackOverflow - problem przestrzeni nazw
-// ###### https://stackoverflow.com/questions/1871060/jaxb-unmarshalling-ignoring-namespace-turns-element-attributes-into-null/7693661
-
-//        XMLInputFactory xif = XMLInputFactory.newFactory();
-//        xif.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, false); // this is the magic line
-//
-//// create xml stream reader using our configured factory
-//        StreamSource source = new StreamSource(plik);
-//        XMLStreamReader xsr = xif.createXMLStreamReader(source);
-//
-//// unmarshall, note that it's better to reuse JAXBContext, as newInstance()
-//// calls are pretty expensive
-//        JAXBContext jc = JAXBContext.newInstance(your.ObjectFactory.class);
-//        Unmarshaller unmarshaller = jc.createUnmarshaller();
-//        Object unmarshal = unmarshaller.unmarshal(xsr);

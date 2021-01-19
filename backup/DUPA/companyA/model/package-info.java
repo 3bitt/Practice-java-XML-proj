@@ -6,4 +6,4 @@
 //
 
 @javax.xml.bind.annotation.XmlSchema(namespace = "", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package pl.edu.wit.jpa.dao.companyA.model;
+package pl.edu.wit.jpa.dao.companyA.model.backup;

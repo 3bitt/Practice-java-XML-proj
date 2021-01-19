@@ -6,33 +6,21 @@
 //
 
 
-package pl.edu.wit.jpa.dao.companyA.model;
+package pl.edu.wit.jpa.dao.companyA.model.backup;
 
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderColumn;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlType;
+import javax.persistence.*;
+import javax.xml.bind.annotation.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.jvnet.jaxb2_commons.lang.Equals;
 import org.jvnet.jaxb2_commons.lang.EqualsStrategy;
 import org.jvnet.jaxb2_commons.lang.HashCode;
@@ -44,12 +32,12 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 
 /**
- * <p>Java class for orderCustomerData complex type.
+ * <p>Java class for customerData complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="orderCustomerData">
+ * &lt;complexType name="customerData">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
@@ -62,10 +50,10 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *         &lt;element name="documentNumber" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="companyName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="nip" type="{http://www.w3.org/2001/XMLSchema}integer" minOccurs="0"/>
- *         &lt;element name="phone" type="{firmaA}phone" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="email" type="{firmaA}email" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="address" type="{firmaA}address" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="account" type="{firmaA}account" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="phones" type="{firmaA}phone" maxOccurs="unbounded"/>
+ *         &lt;element name="emailAddresses" type="{firmaA}email" maxOccurs="unbounded"/>
+ *         &lt;element name="address" type="{firmaA}address" maxOccurs="unbounded"/>
+ *         &lt;element name="account" type="{firmaA}account" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *       &lt;attribute name="type" type="{firmaA}customerDataType" />
  *     &lt;/restriction>
@@ -75,8 +63,11 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  * 
  * 
  */
+@Getter
+@Setter
+@XmlRootElement(name = "customerDatas")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "orderCustomerData", propOrder = {
+@XmlType(name = "customerData", propOrder = {
     "id",
     "name",
     "surname",
@@ -86,15 +77,15 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "documentNumber",
     "companyName",
     "nip",
-    "phone",
-    "email",
+    "phones",
+    "emailAddresses",
     "address",
     "account"
 })
-@Entity(name = "CaOrderCustomerData")
-@Table(name = "CAORDERCUSTOMERDATA")
+@Entity(name = "CaCustomerData")
+@Table(name = "CACUSTOMERDATA")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class CaOrderCustomerData
+public class CaCustomerData
     implements Serializable, Equals, HashCode
 {
 
@@ -107,9 +98,13 @@ public class CaOrderCustomerData
     protected String documentNumber;
     protected String companyName;
     protected BigInteger nip;
-    protected List<String> phone;
-    protected List<String> email;
+    @XmlElement(required = true)
+    protected List<String> phones;
+    @XmlElement(required = true)
+    protected List<String> emailAddresses;
+    @XmlElement(required = true)
     protected List<CaAddress> address;
+    @XmlElement(required = true)
     protected List<CaAccount> account;
     @XmlAttribute(name = "type")
     protected CaCustomerDataType type;
@@ -352,18 +347,18 @@ public class CaOrderCustomerData
     }
 
     /**
-     * Gets the value of the phone property.
+     * Gets the value of the phones property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the phone property.
+     * This is why there is not a <CODE>set</CODE> method for the phones property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getPhone().add(newItem);
+     *    getPhones().add(newItem);
      * </pre>
      * 
      * 
@@ -373,40 +368,40 @@ public class CaOrderCustomerData
      * 
      * 
      */
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @OrderColumn(name = "HJINDEX")
     @Column(name = "HJVALUE", length = 255)
-    @CollectionTable(name = "CAORDERCUSTOMERDATA_PHONE", joinColumns = {
+    @CollectionTable(name = "CACUSTOMERDATA_PHONES", joinColumns = {
         @JoinColumn(name = "ID")
     })
-    public List<String> getPhone() {
-        if (phone == null) {
-            phone = new ArrayList<String>();
+    public List<String> getPhones() {
+        if (phones == null) {
+            phones = new ArrayList<String>();
         }
-        return this.phone;
+        return this.phones;
     }
 
     /**
      * 
      * 
      */
-    public void setPhone(List<String> phone) {
-        this.phone = phone;
+    public void setPhones(List<String> phones) {
+        this.phones = phones;
     }
 
     /**
-     * Gets the value of the email property.
+     * Gets the value of the emailAddresses property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the email property.
+     * This is why there is not a <CODE>set</CODE> method for the emailAddresses property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getEmail().add(newItem);
+     *    getEmailAddresses().add(newItem);
      * </pre>
      * 
      * 
@@ -416,25 +411,25 @@ public class CaOrderCustomerData
      * 
      * 
      */
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @OrderColumn(name = "HJINDEX")
     @Column(name = "HJVALUE", length = 255)
-    @CollectionTable(name = "CAORDERCUSTOMERDATA_EMAIL", joinColumns = {
+    @CollectionTable(name = "CACUSTOMERDATA_EMAILADDRESSES", joinColumns = {
         @JoinColumn(name = "ID")
     })
-    public List<String> getEmail() {
-        if (email == null) {
-            email = new ArrayList<String>();
+    public List<String> getEmailAddresses() {
+        if (emailAddresses == null) {
+            emailAddresses = new ArrayList<String>();
         }
-        return this.email;
+        return this.emailAddresses;
     }
 
     /**
      * 
      * 
      */
-    public void setEmail(List<String> email) {
-        this.email = email;
+    public void setEmailAddresses(List<String> emailAddresses) {
+        this.emailAddresses = emailAddresses;
     }
 
     /**
@@ -459,10 +454,13 @@ public class CaOrderCustomerData
      * 
      * 
      */
-    @OneToMany(targetEntity = CaAddress.class, orphanRemoval = true, cascade = {
-        CascadeType.ALL
-    })
-    @JoinColumn(name = "ADDRESS_CAORDERCUSTOMERDATA__0")
+    @OneToMany(targetEntity = CaAddress.class,
+            orphanRemoval = true,
+            cascade = { CascadeType.ALL }
+            )
+    @JoinColumn(name = "ADDRESS_CACUSTOMERDATA_ID",updatable = true)
+//    @Cascade(org.hibernate.annotations.CascadeType.MERGE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     public List<CaAddress> getAddress() {
         if (address == null) {
             address = new ArrayList<CaAddress>();
@@ -500,10 +498,13 @@ public class CaOrderCustomerData
      * 
      * 
      */
-    @OneToMany(targetEntity = CaAccount.class, orphanRemoval = true, cascade = {
-        CascadeType.ALL
-    })
-    @JoinColumn(name = "ACCOUNT_CAORDERCUSTOMERDATA__0")
+    @OneToMany(targetEntity = CaAccount.class,
+            orphanRemoval = true,
+            cascade = { CascadeType.ALL }
+            )
+    @JoinColumn(name = "ACCOUNT_CACUSTOMERDATA_ID",updatable = true)
+//    @Cascade(org.hibernate.annotations.CascadeType.MERGE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     public List<CaAccount> getAccount() {
         if (account == null) {
             account = new ArrayList<CaAccount>();
@@ -547,13 +548,13 @@ public class CaOrderCustomerData
     }
 
     public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy strategy) {
-        if (!(object instanceof CaOrderCustomerData)) {
+        if (!(object instanceof CaCustomerData)) {
             return false;
         }
         if (this == object) {
             return true;
         }
-        final CaOrderCustomerData that = ((CaOrderCustomerData) object);
+        final CaCustomerData that = ((CaCustomerData) object);
         {
             Long lhsId;
             lhsId = this.getId();
@@ -636,20 +637,20 @@ public class CaOrderCustomerData
             }
         }
         {
-            List<String> lhsPhone;
-            lhsPhone = (((this.phone!= null)&&(!this.phone.isEmpty()))?this.getPhone():null);
-            List<String> rhsPhone;
-            rhsPhone = (((that.phone!= null)&&(!that.phone.isEmpty()))?that.getPhone():null);
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "phone", lhsPhone), LocatorUtils.property(thatLocator, "phone", rhsPhone), lhsPhone, rhsPhone)) {
+            List<String> lhsPhones;
+            lhsPhones = (((this.phones!= null)&&(!this.phones.isEmpty()))?this.getPhones():null);
+            List<String> rhsPhones;
+            rhsPhones = (((that.phones!= null)&&(!that.phones.isEmpty()))?that.getPhones():null);
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "phones", lhsPhones), LocatorUtils.property(thatLocator, "phones", rhsPhones), lhsPhones, rhsPhones)) {
                 return false;
             }
         }
         {
-            List<String> lhsEmail;
-            lhsEmail = (((this.email!= null)&&(!this.email.isEmpty()))?this.getEmail():null);
-            List<String> rhsEmail;
-            rhsEmail = (((that.email!= null)&&(!that.email.isEmpty()))?that.getEmail():null);
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "email", lhsEmail), LocatorUtils.property(thatLocator, "email", rhsEmail), lhsEmail, rhsEmail)) {
+            List<String> lhsEmailAddresses;
+            lhsEmailAddresses = (((this.emailAddresses!= null)&&(!this.emailAddresses.isEmpty()))?this.getEmailAddresses():null);
+            List<String> rhsEmailAddresses;
+            rhsEmailAddresses = (((that.emailAddresses!= null)&&(!that.emailAddresses.isEmpty()))?that.getEmailAddresses():null);
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "emailAddresses", lhsEmailAddresses), LocatorUtils.property(thatLocator, "emailAddresses", rhsEmailAddresses), lhsEmailAddresses, rhsEmailAddresses)) {
                 return false;
             }
         }
@@ -736,14 +737,14 @@ public class CaOrderCustomerData
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "nip", theNip), currentHashCode, theNip);
         }
         {
-            List<String> thePhone;
-            thePhone = (((this.phone!= null)&&(!this.phone.isEmpty()))?this.getPhone():null);
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "phone", thePhone), currentHashCode, thePhone);
+            List<String> thePhones;
+            thePhones = (((this.phones!= null)&&(!this.phones.isEmpty()))?this.getPhones():null);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "phones", thePhones), currentHashCode, thePhones);
         }
         {
-            List<String> theEmail;
-            theEmail = (((this.email!= null)&&(!this.email.isEmpty()))?this.getEmail():null);
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "email", theEmail), currentHashCode, theEmail);
+            List<String> theEmailAddresses;
+            theEmailAddresses = (((this.emailAddresses!= null)&&(!this.emailAddresses.isEmpty()))?this.getEmailAddresses():null);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "emailAddresses", theEmailAddresses), currentHashCode, theEmailAddresses);
         }
         {
             List<CaAddress> theAddress;

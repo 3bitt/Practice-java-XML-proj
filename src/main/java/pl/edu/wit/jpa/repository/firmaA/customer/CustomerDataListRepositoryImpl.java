@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import pl.edu.wit.jpa.dao.companyA.model.CaAddress;
 import pl.edu.wit.jpa.dao.companyA.model.CaCustomerData;
 import pl.edu.wit.jpa.dao.companyA.model.CaCustomerDataList;
 
@@ -41,4 +42,12 @@ public class CustomerDataListRepositoryImpl{
     public void save(CaCustomerDataList customerList){
         customerDataListRepo.save(customerList);
     }
+
+    @Transactional
+    public List<CaCustomerDataList> findAll(){
+        return customerDataListRepo.findAll();
+
+    }
 }
+
+

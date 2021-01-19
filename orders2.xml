@@ -1,85 +1,91 @@
 <orders>
   <date>2008-09-29T03:49:45</date>
-  <synchronizeNo>2</synchronizeNo>
+  <synchronizeNo>1</synchronizeNo>
   <!--1 or more repetitions:-->
-  <order type="WITHDRAWAL" number="2" date="2004-02-14T19:44:14">
-    <accountNumber>099721136931</accountNumber>
+  <order type="WITHDRAWAL" number="1" date="2004-02-14T19:44:14">
+    <accountNumber>123-555-125-456</accountNumber>
     <amount>6789.25</amount>
     <sender type="INDIVIDUAL">
       <!--Optional:-->
-      <id>3</id>
+      <id>1</id>
       <!--Optional:-->
-      <name>Leszek</name>
+      <name>Tomaszek</name>
       <!--Optional:-->
-      <surname>Piesek</surname>
+      <surname>Testowy11</surname>
       <!--Optional:-->
-      <pesel>90000099555</pesel>
+      <pesel>90010199555</pesel>
       <!--Optional:-->
       <documentCountry>PL</documentCountry>
       <!--Optional:-->
       <documentType>ID</documentType>
       <!--Optional:-->
-      <documentNumber>DOC-10025-docNum</documentNumber>
+      <documentNumber>DOC-1345-docNum</documentNumber>
       <!--Optional:-->
-      <companyName>CompanyA-03</companyName>
+      <companyName>CompanyA-01</companyName>
       <!--Optional:-->
-      <nip>12256345</nip>
+      <nip>1234513600</nip>
       <!--1 or more repetitions:-->
-      <phone>02316701</phone>
+      <phone>001</phone>
       <!--1 or more repetitions:-->
-      <email>tomdsftom@email.com</email>
+      <email>tomtom@email.com</email>
       <!--1 or more repetitions:-->
       <address type="HOME">
         <countryCode>PL</countryCode>
         <city>Wrocław</city>
-        <postalCode>02-999</postalCode>
-        <street>ulicas</street>
-        <streetNo>ulicaNofd</streetNo>
-        <homeNo>13242423355</homeNo>
+        <postalCode>02-000</postalCode>
+        <street>ulica</street>
+        <streetNo>ulicaNo</streetNo>
+        <homeNo>13242425</homeNo>
       </address>
       <!--1 or more repetitions:-->
       <account>
-        <name>nazwa konta0000vds00</name>
-        <number>numer:1234560058500</number>
+        <name>nazwa konta0000000000</name>
+        <number>125-6940-000</number>
         <countryCode>PL</countryCode>
       </account>
     </sender>
     <recipient type="COMPANY">
       <!--Optional:-->
-      <id>4</id>
+      <id>2</id>
       <!--Optional:-->
-      <name>Wojtek</name>
+      <name>Wiesławek</name>
       <!--Optional:-->
-      <surname>Kajtek</surname>
+      <surname>Szyszka</surname>
       <!--Optional:-->
-      <pesel>946780199555</pesel>
+      <pesel>91234567867111</pesel>
       <!--Optional:-->
       <documentCountry>PL</documentCountry>
       <!--Optional:-->
       <documentType>PASSPORT</documentType>
       <!--Optional:-->
-      <documentNumber>DOC-11002-docNum</documentNumber>
+      <documentNumber>DOC-13456-docNum</documentNumber>
       <!--Optional:-->
-      <companyName>CompanyA-03</companyName>
+      <companyName>CompanyA-02</companyName>
       <!--Optional:-->
-      <nip>1239000745</nip>
+      <nip>12345111</nip>
       <!--1 or more repetitions:-->
-      <phone>12111116789</phone>
+      <phone>123456789</phone>
+      <phone>123456</phone>
       <!--1 or more repetitions:-->
-      <email>mojemgasgeail@email.com</email>
+      <email>mojemail@email.com</email>
       <!--1 or more repetitions:-->
       <address type="ENUMERATION">
         <countryCode>PL</countryCode>
         <city>Poznań</city>
-        <postalCode>01-23115</postalCode>
-        <street>ulisgjhakas</street>
-        <streetNo>numerasfcy</streetNo>
-        <homeNo>numasfgamuuu</homeNo>
+        <postalCode>01-555</postalCode>
+        <street>ulicaJakas</street>
+        <streetNo>numerUlicy</streetNo>
+        <homeNo>numer domuuu</homeNo>
       </address>
       <!--1 or more repetitions:-->
       <account>
-        <name>Konto-2215</name>
-        <number>099721136931</number>
+        <name>Konto-1</name>
+        <number>123-555-125-456</number>
+        <countryCode>PL</countryCode>
+      </account>
+      <account>
+        <name>Konto-2</name>
+        <number>091-0982-758</number>
         <countryCode>PL</countryCode>
       </account>
     </recipient>

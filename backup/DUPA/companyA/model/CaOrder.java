@@ -6,37 +6,19 @@
 //
 
 
-package pl.edu.wit.jpa.dao.companyA.model;
+package pl.edu.wit.jpa.dao.companyA.model.backup;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
+import javax.persistence.*;
+import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import com.sun.javafx.beans.IDProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 import org.jvnet.hyperjaxb3.xml.bind.annotation.adapters.XMLGregorianCalendarAsDateTime;
 import org.jvnet.hyperjaxb3.xml.bind.annotation.adapters.XmlAdapterUtils;
@@ -48,6 +30,7 @@ import org.jvnet.jaxb2_commons.lang.JAXBEqualsStrategy;
 import org.jvnet.jaxb2_commons.lang.JAXBHashCodeStrategy;
 import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 
 /**
@@ -76,6 +59,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  * 
  * 
  */
+@Getter
+@Setter
+@XmlRootElement(name = "order")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "order", propOrder = {
     "id",
@@ -199,7 +185,7 @@ public class CaOrder
         CascadeType.ALL
     })
     @JoinColumn(name = "SENDER_CAORDER_ID")
-    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+//    @Cascade({org.hibernate.annotations.CascadeType.ALL})
     public CaOrderCustomerData getSender() {
         return sender;
     }
@@ -224,11 +210,12 @@ public class CaOrder
      *     {@link CaOrderCustomerData }
      *     
      */
+
     @ManyToOne(targetEntity = CaOrderCustomerData.class, cascade = {
         CascadeType.ALL
     })
     @JoinColumn(name = "RECIPIENT_CAORDER_ID")
-    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+//    @Cascade({org.hibernate.annotations.CascadeType.ALL})
     public CaOrderCustomerData getRecipient() {
         return recipient;
     }

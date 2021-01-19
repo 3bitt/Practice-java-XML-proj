@@ -6,7 +6,7 @@
 //
 
 
-package pl.edu.wit.jpa.dao.companyA.model;
+package pl.edu.wit.jpa.dao.companyA.model.backup;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,6 +15,12 @@ import java.util.List;
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;
+
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.jvnet.hyperjaxb3.xml.bind.annotation.adapters.XMLGregorianCalendarAsDateTime;
 import org.jvnet.hyperjaxb3.xml.bind.annotation.adapters.XmlAdapterUtils;
 import org.jvnet.jaxb2_commons.lang.Equals;
@@ -49,6 +55,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  * 
  * 
  */
+@Getter
+@Setter
 @XmlRootElement(name = "customerDatas")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "customerDataList", propOrder = {
@@ -173,10 +181,13 @@ public class CaCustomerDataList
      * 
      * 
      */
-    @OneToMany(targetEntity = CaCustomerData.class, orphanRemoval = true, cascade = {
-        CascadeType.ALL
-    }, fetch = FetchType.EAGER)
+    @OneToMany(
+            targetEntity = CaCustomerData.class,
+            orphanRemoval = true,
+            cascade = { CascadeType.ALL }
+            )
     @JoinColumn(name = "CUSTOMERDATAS_CACUSTOMERDATA_0")
+    @LazyCollection(LazyCollectionOption.FALSE)
     public List<CaCustomerData> getCustomerDatas() {
         if (customerDatas == null) {
             customerDatas = new ArrayList<CaCustomerData>();

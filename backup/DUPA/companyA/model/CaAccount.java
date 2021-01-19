@@ -6,24 +6,16 @@
 //
 
 
-package pl.edu.wit.jpa.dao.companyA.model;
+package pl.edu.wit.jpa.dao.companyA.model.backup;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 import org.jvnet.jaxb2_commons.lang.Equals;
 import org.jvnet.jaxb2_commons.lang.EqualsStrategy;
 import org.jvnet.jaxb2_commons.lang.HashCode;
@@ -44,7 +36,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}Long"/>
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="number" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="countryCode" type="{firmaA}countryCode"/>
@@ -56,6 +48,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  * 
  * 
  */
+@Getter
+@Setter
+@XmlRootElement(name = "account")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "account", propOrder = {
     "id",
@@ -70,7 +65,7 @@ public class CaAccount
     implements Serializable, Equals, HashCode
 {
 
-    protected long id;
+    protected Long id;
     @XmlElement(required = true)
     protected String name;
     @XmlElement(required = true)
@@ -85,7 +80,7 @@ public class CaAccount
     @Id
     @Column(name = "id", scale = 0)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -93,7 +88,7 @@ public class CaAccount
      * Sets the value of the id property.
      * 
      */
-    public void setId(long value) {
+    public void setId(Long value) {
         this.id = value;
     }
 
@@ -185,10 +180,12 @@ public class CaAccount
         }
         final CaAccount that = ((CaAccount) object);
         {
-            long lhsId;
-            lhsId = (true?this.getId(): 0L);
-            long rhsId;
-            rhsId = (true?that.getId(): 0L);
+            Long lhsId;
+//            lhsId = (true?this.getId(): 0L);
+            lhsId = this.getId();
+            Long rhsId;
+//            rhsId = (true?that.getId(): 0L);
+            rhsId = that.getId();
             if (!strategy.equals(LocatorUtils.property(thisLocator, "id", lhsId), LocatorUtils.property(thatLocator, "id", rhsId), lhsId, rhsId)) {
                 return false;
             }
@@ -231,8 +228,9 @@ public class CaAccount
     public int hashCode(ObjectLocator locator, HashCodeStrategy strategy) {
         int currentHashCode = 1;
         {
-            long theId;
-            theId = (true?this.getId(): 0L);
+            Long theId;
+//            theId = (true?this.getId(): 0L);
+            theId = this.getId();
             currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "id", theId), currentHashCode, theId);
         }
         {

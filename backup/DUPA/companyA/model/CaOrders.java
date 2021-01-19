@@ -6,7 +6,7 @@
 //
 
 
-package pl.edu.wit.jpa.dao.companyA.model;
+package pl.edu.wit.jpa.dao.companyA.model.backup;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,13 +27,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 import org.jvnet.hyperjaxb3.xml.bind.annotation.adapters.XMLGregorianCalendarAsDateTime;
 import org.jvnet.hyperjaxb3.xml.bind.annotation.adapters.XmlAdapterUtils;
@@ -69,6 +67,9 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  * 
  * 
  */
+@Getter
+@Setter
+@XmlRootElement(name = "orders")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "orders", propOrder = {
     "id",
@@ -192,11 +193,11 @@ public class CaOrders
      * 
      * 
      */
-    @OneToMany(targetEntity = CaOrder.class, cascade = {
+    @OneToMany(targetEntity = CaOrder.class, orphanRemoval = true, cascade = {
         CascadeType.ALL
     })
     @JoinColumn(name = "ORDER__CAORDERS_ID")
-    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+//    @Cascade({org.hibernate.annotations.CascadeType.ALL})
     public List<CaOrder> getOrder() {
         if (order == null) {
             order = new ArrayList<CaOrder>();

@@ -11,6 +11,7 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.UndeclaredThrowableException;
 
 
 public class JaxbFactory {
@@ -26,23 +27,27 @@ public class JaxbFactory {
         return mar;
     }
 
-    public Unmarshaller getUnmarshaller(Class cls, String validationSchemaXSD) throws JAXBException, IOException, SAXException {
+    public Unmarshaller getUnmarshaller(Class cls, String validationSchemaXSD, String fileName) throws JAXBException, IOException, SAXException {
+
         JAXBContext context = JAXBContext.newInstance(cls);
         Unmarshaller mar = context.createUnmarshaller();
+
         mar.setEventHandler(event -> {
-            System.err.println("Niepoprawne dane!");
+            System.err.println("\nNiepoprawne dane w pliku: " + fileName);
             ValidationEventLocator loc = event.getLocator();
             int line = loc.getLineNumber();
             int column = loc.getColumnNumber();
             String msgSubString = event.getMessage().substring(
                     event.getMessage().indexOf("{"),
-                    event.getMessage().indexOf("}")+1
+                    event.getMessage().indexOf("}") + 1
             );
 
-            System.err.print("Linia: " +line+ "\nKolumna: " +column  );
-            System.err.println("\nBrakuje " + msgSubString);
+            System.err.print("Linia: " + line + "\nKolumna: " + column);
+            System.err.println("\nSprawdź czy nie brakuje tych elementów: " + msgSubString +"\n");
+            System.err.println(event.getMessage());
             return false;
         });
+
 
         //  #### Set Schema so marshaller can validate XML file basing on XSD schema file
         SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);

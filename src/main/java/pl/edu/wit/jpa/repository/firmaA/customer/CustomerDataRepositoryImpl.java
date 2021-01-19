@@ -7,6 +7,7 @@ import pl.edu.wit.jpa.dao.companyA.model.*;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,31 +95,29 @@ public class CustomerDataRepositoryImpl {
     }
 
 
+
+    public List<CaCustomerData> findCustomer(){
+        return customerRepo.findAll();
+    }
+
+    public List<CaAddress> findAddresses(){
+        return addressRepo.findAll();
+    }
+    public List<CaAccount> findAccounts(){
+        return accountRepo.findAll();
+    }
+
     @Transactional
     public CaCustomerData findCustomerByOrder(CaOrder order){
         return customerRepo.findByid(order.getSender().getId());
     }
-//    public List<CaCustomerData> getAllCustomers(){
-//        List<CaCustomerData> customers = new ArrayList<>();
-//        customerRepo.findAll().forEach(customers::add);
-//        return customers;
-//    }
-//    public void addCustomer(CaCustomerData customer){
-//        customerRepo.save(customer);
-//    }
-//    public void addCustomerAccount(CaCustomerData customer){
-//        List<CaAccount> account = customer.getAccount();
-//        for (CaAccount acc : account){
-//            accountRepo.save(acc);
-//        }
-//    }
-//    public void updateCustomer(CaCustomerData customer){
-//        customerRepo.save(customer);
-//    }
-//
-//    public void deleteCustomer(Long id){
-//        customerRepo.deleteById(id);
-//    }
+
+    public CaCustomerData findCustomerByPesel(String pesel){
+        return customerRepo.findByPeselEquals(pesel);
+    }
+    public CaCustomerData findCustomerByNip(BigInteger nip){
+        return customerRepo.findByNipEquals(nip);
+    }
 
 
 

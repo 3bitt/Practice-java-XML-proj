@@ -20,7 +20,7 @@
     <!--Optional:-->
     <companyName>CompanyA-01</companyName>
     <!--Optional:-->
-    <nip>12345</nip>
+    <nip>1234513600</nip>
     <!--1 or more repetitions:-->
     <phones>001</phones>
     <!--1 or more repetitions:-->
@@ -37,7 +37,7 @@
     <!--1 or more repetitions:-->
     <account>
       <name>nazwa konta0000000000</name>
-      <number>numer:12345600000</number>
+      <number>125-6940-000</number>
       <countryCode>PL</countryCode>
     </account>
   </customerDatas>
@@ -49,7 +49,7 @@
     <!--Optional:-->
     <surname>Szyszka</surname>
     <!--Optional:-->
-    <pesel>99010199555</pesel>
+    <pesel>91234567867111</pesel>
     <!--Optional:-->
     <documentCountry>PL</documentCountry>
     <!--Optional:-->
@@ -59,7 +59,7 @@
     <!--Optional:-->
     <companyName>CompanyA-02</companyName>
     <!--Optional:-->
-    <nip>12345</nip>
+    <nip>12345111</nip>
     <!--1 or more repetitions:-->
     <phones>123456789</phones>
     <phones>123456</phones>
@@ -77,12 +77,12 @@
     <!--1 or more repetitions:-->
     <account>
       <name>Konto-1</name>
-      <number>123456</number>
+      <number>123-555-125-456</number>
       <countryCode>PL</countryCode>
     </account>
     <account>
       <name>Konto-2</name>
-      <number>091</number>
+      <number>091-0982-758</number>
       <countryCode>PL</countryCode>
     </account>
   </customerDatas>
