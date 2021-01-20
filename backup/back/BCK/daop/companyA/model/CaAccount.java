@@ -51,7 +51,6 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 @XmlRootElement(name = "account")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "account", propOrder = {
-    "id",
     "name",
     "number",
     "countryCode"
@@ -62,7 +61,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 public class CaAccount
     implements Serializable, Equals, HashCode
 {
-
+    @XmlTransient
     protected Long id;
     @XmlElement(required = true)
     protected String name;

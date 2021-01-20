@@ -61,7 +61,6 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 @XmlRootElement(name = "order")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "order", propOrder = {
-    "id",
     "accountNumber",
     "amount",
     "sender",
@@ -73,7 +72,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 public class CaOrder
     implements Serializable, Equals, HashCode
 {
-
+    @XmlTransient
     protected Long id;
     @XmlElement(required = true)
     protected String accountNumber;

@@ -71,7 +71,6 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 @XmlRootElement(name = "orders")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "orders", propOrder = {
-    "id",
     "date",
     "synchronizeNo",
     "order"
@@ -83,6 +82,7 @@ public class CaOrders
     implements Serializable, Equals, HashCode
 {
 
+    @XmlTransient
     protected Long id;
     @XmlElement(required = true)
     @XmlSchemaType(name = "dateTime")
@@ -100,6 +100,7 @@ public class CaOrders
      *     {@link Long }
      *     
      */
+
     @Id
     @Column(name = "id", scale = 0)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

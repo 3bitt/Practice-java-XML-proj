@@ -55,7 +55,6 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 @XmlRootElement(name = "address")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "address", propOrder = {
-    "id",
     "countryCode",
     "city",
     "postalCode",
@@ -70,6 +69,7 @@ public class CaAddress
     implements Serializable, Equals, HashCode
 {
 
+    @XmlTransient
     protected Long id;
     @XmlElement(required = true)
     protected CaCountryCode countryCode;
