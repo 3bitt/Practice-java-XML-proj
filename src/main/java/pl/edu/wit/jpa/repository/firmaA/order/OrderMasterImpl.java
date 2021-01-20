@@ -33,12 +33,12 @@ public class OrderMasterImpl {
         this.em = em;
     }
 
-    public CaOrders saveParentOrderOnly(CaOrders parentOrder){
-        CaOrders order = new CaOrders();
-        order.setSynchronizeNo(parentOrder.getSynchronizeNo());
-        order.setDateItem(parentOrder.getDateItem());
-        return ordersRepo.save(order);
-    }
+//    public CaOrders saveParentOrderOnly(CaOrders parentOrder){
+//        CaOrders order = new CaOrders();
+//        order.setSynchronizeNo(parentOrder.getSynchronizeNo());
+//        order.setDateItem(parentOrder.getDateItem());
+//        return ordersRepo.save(order);
+//    }
 
     public void saveWholeOrders(CaOrders orders){
         CaOrders order = em.merge(orders);
@@ -46,35 +46,38 @@ public class OrderMasterImpl {
         em.flush();
     }
 
-    public void saveChildOrder(CaOrder order){
-        CaOrder ord = em.merge(order);
-        orderRepo.save(em.getReference(CaOrder.class, ord.getId()));
-    }
+//    public void saveChildOrder(CaOrder order){
+//        CaOrder ord = em.merge(order);
+//        orderRepo.save(em.getReference(CaOrder.class, ord.getId()));
+//    }
 
     public void processOrders(CaOrders orders){
 
+        boolean is_valid = false;
+
         for (CaOrder order : orders.getOrder()){
-            if (validateOrder(order, order.getAccountNumber())){
-
-                orderCustomerRepo.save(order.getSender());
-                orderCustomerRepo.save(order.getRecipient());
-                em.flush();
-
+            is_valid = validateOrder(order, order.getAccountNumber());
+            if (is_valid){
+                orderCustomerRepo.saveAndFlush(order.getSender());
+                orderCustomerRepo.saveAndFlush(order.getRecipient());
+//                em.flush();
             }
         }
-
-        saveWholeOrders(orders);
+        if (is_valid) {
+            saveWholeOrders(orders);
+        }
     }
 
     public boolean validateOrder(CaOrder order, String accountNumber){
         CaOrderCustomerData recipient = order.getRecipient();
         CaOrderCustomerData sender = order.getSender();
-        CaAccount orderTargetAccount = accountRepo.findByNumber(accountNumber);
+//        CaAccount orderTargetAccount = accountRepo.findByNumber(accountNumber);
         CaCustomerData customer;
 
-        if (orderTargetAccount == null){
-            System.err.println("----- Rachunek docelowy nie istnieje w bazie danych -----");
+        if (accountNumber == null){
+            System.err.println("----- Rachunek docelowy nie został podany -----");
             System.err.println("---> ZAMÓWIENIE NR: " + order.getNumber());
+            System.err.println("----- Operacja przerwana -------");
             return false;
         }
 
@@ -87,6 +90,7 @@ public class OrderMasterImpl {
                 System.err.println("Surname: " + recipient.getSurname());
                 System.err.println("Company: " + recipient.getCompanyName());
                 System.err.println("PESEL: " + recipient.getPesel());
+                System.err.println("----- Operacja przerwana -------");
                 return false;
             }
         } else if (recipient.getNip() != null) {
@@ -98,6 +102,7 @@ public class OrderMasterImpl {
                 System.err.println("Surname: " + recipient.getSurname());
                 System.err.println("Company: " + recipient.getCompanyName());
                 System.err.println("NIP: " + recipient.getNip());
+                System.err.println("----- Operacja przerwana -------");
                 return false;
             }
 
@@ -107,24 +112,26 @@ public class OrderMasterImpl {
             System.err.println("Name: " + recipient.getName());
             System.err.println("Surname: " + recipient.getSurname());
             System.err.println("Company: " + recipient.getCompanyName());
-            System.err.println("NIP: " + recipient.getNip());
+            System.err.println("----- Operacja przerwana -------");
             return false;
         }
 
         List<CaAccount> customerAccounts = customer.getAccount();
 
         for (CaAccount acc : customerAccounts){
-            String targetAccount = orderTargetAccount.getNumber();
+//            String targetAccount = orderTargetAccount.getNumber();
             String customerAccount = acc.getNumber();
-            if (targetAccount.equals(customerAccount)){
+            if (accountNumber.equals(customerAccount)){
                 return true;
             }
         }
 
-        System.err.println("\n----- Odbiorca nie posiada rachunku dolecowego -----");
+        System.err.println("\n----- Odbiorca nie posiada rachunku docelowego -----");
+        System.err.println("----> ZAMÓWIENIE NR: " + order.getNumber());
         System.err.println("Rachunek docelowy: " + accountNumber);
         System.err.println("-- Rachunki odbiorcy --");
         customerAccounts.forEach((account) -> System.err.println(account.getNumber()));
+        System.err.println("----- Operacja przerwana -------");
         return false;
     }
 }

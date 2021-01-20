@@ -133,12 +133,13 @@ public class XMLControllerCommands {
 //            CaOrderCustomerData sender = order.getSender();
 //        }
 
-        Unmarshaller un = jaxbFactory.getUnmarshaller(CaOrders.class, "FIRMA_A.xsd", plik);
-        CaOrders or = (CaOrders) un.unmarshal(new File(plik));
+        try {
+            Unmarshaller un = jaxbFactory.getUnmarshaller(CaOrders.class, "FIRMA_A.xsd", plik);
+            CaOrders or = (CaOrders) un.unmarshal(new File(plik));
 
+            orderMaster.processOrders(or);
 
-        orderMaster.processOrders(or);
-
+        } catch (UnmarshalException ignored){}
 
     }
 

@@ -3,7 +3,7 @@
   <synchronizeNo>1</synchronizeNo>
   <!--1 or more repetitions:-->
   <order type="WITHDRAWAL" number="1" date="2004-02-14T19:44:14">
-    <accountNumber>123-555-125-456</accountNumber>
+    <accountNumber>123-5515-125-456</accountNumber>
     <amount>6789.25</amount>
     <sender type="INDIVIDUAL">
       <!--Optional:-->

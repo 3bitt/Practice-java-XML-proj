@@ -44,7 +44,6 @@ public class JaxbFactory {
 
             System.err.print("Linia: " + line + "\nKolumna: " + column);
             System.err.println("\nSprawdź czy nie brakuje tych elementów: " + msgSubString +"\n");
-            System.err.println(event.getMessage());
             return false;
         });
 
