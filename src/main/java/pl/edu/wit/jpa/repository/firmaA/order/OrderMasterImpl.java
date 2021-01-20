@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import pl.edu.wit.jpa.dao.companyA.model.*;
 import pl.edu.wit.jpa.repository.firmaA.customer.AccountRepository;
 import pl.edu.wit.jpa.repository.firmaA.customer.CustomerDataRepositoryImpl;
+import pl.edu.wit.shell.XMLControllerCommands;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,6 +29,8 @@ public class OrderMasterImpl {
     private CustomerDataRepositoryImpl customerRepo;
     @Autowired
     public final EntityManager em;
+
+
 
     public OrderMasterImpl(EntityManager em){
         this.em = em;
@@ -65,6 +68,7 @@ public class OrderMasterImpl {
         }
         if (is_valid) {
             saveWholeOrders(orders);
+            XMLControllerCommands.ordersReceived += 1;
         }
     }
 

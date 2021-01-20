@@ -1,9 +1,12 @@
 package pl.edu.wit.shell;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.xml.sax.SAXException;
 import pl.edu.wit.controller.JaxbFactory;
 import pl.edu.wit.jpa.dao.companyA.model.*;
@@ -19,9 +22,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @ShellComponent("KLIENT")
 public class XMLControllerCommands {
+
+    public Integer ordersSynchroNo = 0;
+    public static Long ordersReceived = 0L;
 
     @Autowired
     private JaxbFactory jaxbFactory;
@@ -43,6 +50,8 @@ public class XMLControllerCommands {
     private OrderCustomerRepository orderCustomerRepo;
     @Autowired
     private OrderImpl orderRepoImpl;
+    @Autowired
+    private OrdersImpl ordersImpl;
     @Autowired
     private OrderMasterImpl orderMaster;
 
@@ -141,6 +150,16 @@ public class XMLControllerCommands {
 
         } catch (UnmarshalException ignored){}
 
+    }
+
+//    Adnotacja Transactional z parametrami potrzebna zeby wyciagnac zagniezdzone elementy Orders
+    @Transactional(propagation= Propagation.REQUIRED, readOnly=true, noRollbackFor=Exception.class)
+    @ShellMethod("Eksport klientów")
+    public void eksportujZlecenia() throws JAXBException, IOException {
+        Marshaller marshaller = jaxbFactory.getMarshaller(CaOrders.class);
+        CaOrders orders = ordersImpl.findById(ordersReceived);
+
+        marshaller.marshal(orders, new File("orders_FirmaA_export.xml"));
     }
 
     @ShellMethod("Pokaz klientow")

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import pl.edu.wit.jpa.dao.companyA.model.CaOrders;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 @Component
 public class OrdersImpl{
@@ -18,8 +19,9 @@ public class OrdersImpl{
         this.em = em;
     }
 
-//    public void saveOrders(CaOrders orders){
-//        ordersRepo.
-//    }
+
+    public CaOrders findById(Long id){
+        return ordersRepo.findOrdersById(id);
+    };
 
 }
